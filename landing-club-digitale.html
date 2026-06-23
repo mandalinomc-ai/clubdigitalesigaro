@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Eleviamo l'immagine digitale dei più prestigiosi Salotti e Club d'Italia. Gestione social d'élite a distanza." />
+  <meta name="theme-color" content="#0B0B0B" />
+  <meta property="og:title" content="Club Digitale — La Tradizione dei Grandi Club. Digitalizzata." />
+  <meta property="og:description" content="Gestione social d'élite per tabaccherie di prestigio, salotti culturali e club esclusivi." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/assets/img/hero-salotto-lounge.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230B0B0B' width='32' height='32' rx='6'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia,serif' font-size='16' fill='%23E6CA93'%3ECD%3C/text%3E%3C/svg%3E" />
   <title>Club Digitale — La Tradizione dei Grandi Club. Digitalizzata.</title>
 
   <!-- Fonts -->
@@ -407,6 +413,107 @@
     }
     .wa-widget-fab:active { cursor: grabbing; }
     .wa-widget-fab svg { width: 30px; height: 30px; }
+
+    /* Reel video */
+    .reel-wrap {
+      position: relative;
+      background: #0B0B0B;
+      min-height: 120px;
+    }
+    .reel-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .reel-video.is-ready { opacity: 1; }
+    .reel-ui {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to top, rgba(11,11,11,0.85) 0%, transparent 45%, transparent 100%);
+    }
+    .reel-play-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 12;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      background: rgba(11,11,11,0.65);
+      border: 1px solid rgba(179,143,77,0.35);
+      font-size: 7px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #E6CA93;
+    }
+    .reel-caption {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      z-index: 12;
+      font-size: 9px;
+      line-height: 1.4;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      font-weight: 300;
+      padding-right: 0;
+    }
+    .reel-wrap:has(.reel-mute-btn) .reel-caption {
+      padding-right: 34px;
+      text-align: left;
+    }
+    .reel-mute-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      z-index: 15;
+      pointer-events: auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(179,143,77,0.4);
+      background: rgba(11,11,11,0.7);
+      color: #E6CA93;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .reel-mute-btn:hover {
+      background: rgba(179,143,77,0.2);
+      border-color: #E6CA93;
+    }
+    .reel-showcase .reel-wrap {
+      aspect-ratio: 9/16;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(179,143,77,0.2);
+    }
+    .reel-showcase .reel-caption { font-size: 10px; bottom: 12px; }
+
+    /* Mobile nav */
+    .nav-mobile-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+    .nav-mobile-panel.open { max-height: 220px; }
+    .img-error-fallback {
+      background: linear-gradient(135deg, #141414, #0B0B0B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #B38F4D;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
   </style>
 </head>
 
@@ -421,14 +528,26 @@
 
   <!-- Navigation -->
   <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gold-dark/10">
-    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="font-serif text-xl text-white tracking-wide">
-        Club<span class="text-gold-gradient"> Digitale</span>
-      </a>
-      <div class="hidden sm:flex items-center gap-8">
-        <a href="#eventi" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Eventi</a>
-        <a href="#social-preview" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Preview</a>
-        <a href="#contatti" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Accesso Riservato</a>
+    <nav class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <a href="#" class="font-serif text-xl text-white tracking-wide">
+          Club<span class="text-gold-gradient"> Digitale</span>
+        </a>
+        <div class="hidden sm:flex items-center gap-8">
+          <a href="#eventi" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Eventi</a>
+          <a href="#social-preview" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Preview</a>
+          <a href="#contatti" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Accesso Riservato</a>
+        </div>
+        <button type="button" id="nav-toggle" class="sm:hidden text-gold-light p-2 -mr-2" aria-label="Apri menu" aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+      <div id="nav-mobile" class="nav-mobile-panel sm:hidden">
+        <div class="pt-4 pb-2 flex flex-col gap-4 border-t border-gold-dark/10 mt-4">
+          <a href="#eventi" class="nav-link text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light">Eventi</a>
+          <a href="#social-preview" class="nav-link text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light">Preview</a>
+          <a href="#contatti" class="nav-link text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light">Accesso Riservato</a>
+        </div>
       </div>
     </nav>
   </header>
@@ -471,7 +590,7 @@
           <div id="foto-salotto" class="lg:col-span-5 lg:col-start-8">
             <div class="relative hero-accent-wrap rounded-2xl overflow-hidden card-lift ml-auto max-w-md lg:max-w-none">
               <img
-                src="assets/img/hero-salotto-lounge.png"
+                src="/assets/img/hero-salotto-lounge.png"
                 alt="Salotto privato: humidor in cedro, sigari, distillati e candele"
                 class="img-luxury photo-showcase img-hero-accent w-full h-72 sm:h-96 lg:h-[520px] object-cover"
                 loading="eager"
@@ -536,7 +655,7 @@
           <!-- Box 1 — Foto 2/5: Degustazione -->
           <div class="reveal group bento-photo-card rounded-2xl p-8 sm:p-10 md:col-span-7 card-lift relative accent-line overflow-hidden min-h-[420px]">
             <img
-              src="assets/img/degustazione-distillati.png"
+              src="/assets/img/degustazione-distillati.png"
               alt="Degustazione amari, botaniche e abbinamenti gourmet"
               class="bento-bg-img"
               loading="lazy"
@@ -584,7 +703,7 @@
 
           <!-- Box 3 — Foto 3/5: Eventi (UNICA foto tavolo matrimonio) -->
           <div id="eventi" class="reveal md:col-span-12" style="transition-delay: 0.2s">
-            <div class="glass rounded-2xl p-8 sm:p-10 card-lift border border-gold-dark/20">
+            <div class="glass rounded-2xl p-8 sm:p-10 card-lift border border-gold-dark/20 relative">
               <span class="font-serif text-6xl text-gold-dark/20 absolute top-8 right-10 hidden sm:block">III</span>
               <p class="text-xs uppercase tracking-[0.25em] text-gold-dark mb-4">Infrastruttura Eventi</p>
               <h3 class="font-serif text-2xl sm:text-3xl text-white mb-3 font-medium">Matrimoni &amp; Banchi Degustazione</h3>
@@ -595,7 +714,7 @@
               <div class="rounded-2xl overflow-hidden border border-gold-dark/30 relative mb-8">
                 <span class="photo-label">Foto 3 · Tavolo Matrimonio / Evento</span>
                 <img
-                  src="assets/img/evento-tavolo-matrimonio.png"
+                  src="/assets/img/evento-tavolo-matrimonio.png"
                   alt="Tavolo evento: humidor, Macallan, cioccolato fondente, candele e fiammiferi"
                   class="img-luxury photo-showcase w-full h-auto max-h-[560px] object-cover object-center"
                   loading="lazy"
@@ -713,8 +832,12 @@
                   <div class="ig-grid-cell bg-void flex items-center justify-center p-2">
                     <span class="font-serif text-[7px] text-gold-gradient italic text-center leading-tight">Rituale</span>
                   </div>
-                  <div class="ig-grid-cell bg-graphite flex items-center justify-center p-2">
-                    <svg class="w-3 h-3 text-gold-light" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                  <div class="ig-grid-cell reel-wrap">
+                    <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/hero-salotto-lounge.png" aria-label="Anteprima reel humidor">
+                      <source src="/assets/video/reel-humidor.mp4" type="video/mp4" />
+                    </video>
+                    <div class="reel-ui"></div>
+                    <span class="reel-play-badge">Reel</span>
                   </div>
                 </div>
               </div>
@@ -734,7 +857,7 @@
                 <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-1 row-span-2">
                   <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Alta Gamma</span>
                   <img
-                    src="assets/img/sigari-alta-gamma.png"
+                    src="/assets/img/sigari-alta-gamma.png"
                     alt="Sigari di alta gamma — post Instagram"
                     class="img-luxury photo-showcase w-full h-full object-cover object-top"
                     loading="lazy"
@@ -746,7 +869,7 @@
                 <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2">
                   <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Il Rituale</span>
                   <img
-                    src="assets/img/rituale-serata-quote.png"
+                    src="/assets/img/rituale-serata-quote.png"
                     alt="Grafica social — When the end of the evening..."
                     class="img-luxury photo-showcase w-full h-full object-cover"
                     loading="lazy"
@@ -754,15 +877,26 @@
                   />
                 </div>
 
-                <!-- Reel educativo -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 bg-void border border-gold-dark/15 flex flex-col items-center justify-center p-4 min-h-[120px]">
-                  <div class="w-10 h-10 rounded-full glass flex items-center justify-center border border-gold-dark/30 mb-3">
-                    <svg class="w-4 h-4 text-gold-light ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
-                  </div>
-                  <p class="text-[9px] uppercase tracking-wider text-gold-dark mb-1">Reel</p>
-                  <p class="text-[10px] text-white/80 text-center leading-relaxed font-light">
+                <!-- Reel humidor — autoplay -->
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 reel-wrap" data-reel>
+                  <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Reel · Humidor</span>
+                  <span class="reel-play-badge">▶ Auto</span>
+                  <video
+                    class="reel-video"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    poster="/assets/img/hero-salotto-lounge.png"
+                    aria-label="Reel educativo sulla conservazione sigari"
+                  >
+                    <source src="/assets/video/reel-humidor.mp4" type="video/mp4" />
+                  </video>
+                  <div class="reel-ui"></div>
+                  <p class="reel-caption">
                     «...la temperatura ideale deve oscillare tra i <span class="text-gold-light">18°C</span> e i <span class="text-gold-light">21°C</span>...»
                   </p>
+                  <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
                 </div>
 
               </div>
@@ -854,6 +988,37 @@
                   <p class="text-white mb-1">03 — Pubblichiamo</p>
                   <p class="text-silk text-xs leading-relaxed">Sottotitoli dinamici d'alta moda e colonne sonore d'atmosfera</p>
                 </div>
+              </div>
+            </div>
+
+            <!-- Anteprima reel — autoplay quando visibili -->
+            <div class="reel-showcase grid grid-cols-3 gap-3 mb-8">
+              <div class="reel-wrap" data-reel>
+                <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Humidor</span>
+                <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/hero-salotto-lounge.png" aria-label="Reel salotto e humidor">
+                  <source src="/assets/video/reel-humidor.mp4" type="video/mp4" />
+                </video>
+                <div class="reel-ui"></div>
+                <p class="reel-caption">Salotto &amp; conservazione</p>
+                <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
+              </div>
+              <div class="reel-wrap" data-reel>
+                <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Degustazione</span>
+                <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/degustazione-distillati.png" aria-label="Reel degustazione distillati">
+                  <source src="/assets/video/reel-degustazione.mp4" type="video/mp4" />
+                </video>
+                <div class="reel-ui"></div>
+                <p class="reel-caption">Note &amp; abbinamenti</p>
+                <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
+              </div>
+              <div class="reel-wrap" data-reel>
+                <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Eventi</span>
+                <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/evento-tavolo-matrimonio.png" aria-label="Reel tavolo evento matrimonio">
+                  <source src="/assets/video/reel-evento.mp4" type="video/mp4" />
+                </video>
+                <div class="reel-ui"></div>
+                <p class="reel-caption">Matrimoni &amp; tavoli</p>
+                <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
               </div>
             </div>
 
@@ -986,23 +1151,106 @@
 
   <!-- Scroll reveal + form handler -->
   <script>
+    const SITE = {
+      whatsapp: '393483470654',
+      waMessage: 'Ciao, vorrei una consulenza gratuita per Club Digitale.',
+    };
+
     // Intersection Observer for scroll animations
     const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => observer.observe(el));
+    revealEls.forEach(el => revealObserver.observe(el));
 
-    // Global image load handler
+    // Images — load + error fallback
+    function markImageLoaded(img) {
+      img.classList.add('loaded');
+    }
+    function handleImageError(img) {
+      img.classList.add('loaded', 'img-error-fallback');
+      img.removeAttribute('src');
+      img.alt = 'Immagine non disponibile';
+    }
     document.querySelectorAll('.img-luxury, .bento-bg-img').forEach(img => {
-      if (img.complete) img.classList.add('loaded');
-      else img.addEventListener('load', () => img.classList.add('loaded'));
+      img.addEventListener('error', () => handleImageError(img));
+      if (img.complete && img.naturalWidth > 0) markImageLoaded(img);
+      else {
+        img.addEventListener('load', () => markImageLoaded(img));
+      }
     });
+
+    // Reel autoplay — muted, loop, plays when visible
+    function initReels() {
+      const videos = document.querySelectorAll('.reel-video');
+      if (!videos.length) return;
+
+      const tryPlay = (video) => {
+        video.play().catch(() => { /* autoplay blocked until interaction */ });
+      };
+
+      const reelObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) tryPlay(video);
+          else video.pause();
+        });
+      }, { threshold: 0.35, rootMargin: '0px 0px -5% 0px' });
+
+      videos.forEach(video => {
+        video.addEventListener('loadeddata', () => video.classList.add('is-ready'));
+        video.addEventListener('error', () => {
+          video.classList.add('is-ready');
+          const wrap = video.closest('.reel-wrap');
+          if (wrap) wrap.classList.add('img-error-fallback');
+        });
+        if (video.readyState >= 2) video.classList.add('is-ready');
+        reelObserver.observe(video);
+      });
+
+      document.querySelectorAll('[data-mute]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const video = btn.closest('[data-reel], .reel-wrap')?.querySelector('.reel-video')
+            || btn.parentElement?.querySelector('.reel-video');
+          if (!video) return;
+          video.muted = !video.muted;
+          btn.textContent = video.muted ? '🔇' : '🔊';
+          if (!video.muted) tryPlay(video);
+        });
+      });
+
+      // First interaction unlocks autoplay on mobile
+      const unlock = () => {
+        videos.forEach(tryPlay);
+        document.removeEventListener('touchstart', unlock);
+        document.removeEventListener('click', unlock);
+      };
+      document.addEventListener('touchstart', unlock, { once: true, passive: true });
+      document.addEventListener('click', unlock, { once: true });
+    }
+    initReels();
+
+    // Mobile nav
+    const navToggle = document.getElementById('nav-toggle');
+    const navMobile = document.getElementById('nav-mobile');
+    if (navToggle && navMobile) {
+      navToggle.addEventListener('click', () => {
+        const open = navMobile.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      navMobile.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          navMobile.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
 
     // Form submit — opens WhatsApp with pre-filled message
     function handleSubmit(e) {
@@ -1020,9 +1268,7 @@
         `WhatsApp: ${whatsapp}`
       );
 
-      // Replace with your business WhatsApp number
-      const businessNumber = '393483470654';
-      window.open(`https://wa.me/${businessNumber}?text=${msg}`, '_blank');
+      window.open(`https://wa.me/${SITE.whatsapp}?text=${msg}`, '_blank', 'noopener,noreferrer');
     }
 
     // WhatsApp floating widget — drag + minimize
@@ -1031,7 +1277,7 @@
       const fab = document.getElementById('wa-fab');
       const minimizeBtn = document.getElementById('wa-minimize');
       const dragHandle = document.getElementById('wa-drag-handle');
-      const WA_URL = 'https://wa.me/393483470654?text=' + encodeURIComponent('Ciao, vorrei una consulenza gratuita per Club Digitale.');
+      const WA_URL = 'https://wa.me/' + SITE.whatsapp + '?text=' + encodeURIComponent(SITE.waMessage);
       const POS_KEY = 'clubDigitaleWaPos';
       const MIN_KEY = 'clubDigitaleWaMin';
 
