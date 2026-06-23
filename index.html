@@ -4,12 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Eleviamo l'immagine digitale dei più prestigiosi Salotti e Club d'Italia. Gestione social d'élite a distanza." />
-  <meta name="theme-color" content="#0B0B0B" />
-  <meta property="og:title" content="Club Digitale — La Tradizione dei Grandi Club. Digitalizzata." />
-  <meta property="og:description" content="Gestione social d'élite per tabaccherie di prestigio, salotti culturali e club esclusivi." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/assets/img/hero-salotto-lounge.png" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230B0B0B' width='32' height='32' rx='6'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia,serif' font-size='16' fill='%23E6CA93'%3ECD%3C/text%3E%3C/svg%3E" />
   <title>Club Digitale — La Tradizione dei Grandi Club. Digitalizzata.</title>
 
   <!-- Fonts -->
@@ -414,11 +408,13 @@
     .wa-widget-fab:active { cursor: grabbing; }
     .wa-widget-fab svg { width: 30px; height: 30px; }
 
-    /* Reel video */
+    /* Reel players */
     .reel-wrap {
       position: relative;
+      overflow: hidden;
       background: #0B0B0B;
-      min-height: 120px;
+      aspect-ratio: 9 / 16;
+      border-radius: 0.75rem;
     }
     .reel-video {
       width: 100%;
@@ -426,93 +422,245 @@
       object-fit: cover;
       display: block;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.5s ease;
     }
-    .reel-video.is-ready { opacity: 1; }
-    .reel-ui {
+    .reel-video.reel-ready { opacity: 1; }
+    .reel-wrap.reel-fallback::after {
+      content: 'Reel';
       position: absolute;
       inset: 0;
-      pointer-events: none;
-      background: linear-gradient(to top, rgba(11,11,11,0.85) 0%, transparent 45%, transparent 100%);
-    }
-    .reel-play-badge {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      z-index: 12;
-      padding: 3px 8px;
-      border-radius: 9999px;
-      background: rgba(11,11,11,0.65);
-      border: 1px solid rgba(179,143,77,0.35);
-      font-size: 7px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #E6CA93;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #141414, #0B0B0B);
+    }
+    .reel-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11,11,11,0.85) 0%, transparent 45%);
+      pointer-events: none;
     }
     .reel-caption {
       position: absolute;
-      bottom: 8px;
-      left: 8px;
-      right: 8px;
-      z-index: 12;
-      font-size: 9px;
-      line-height: 1.4;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      z-index: 2;
+      font-size: 10px;
       color: rgba(255,255,255,0.9);
-      text-align: center;
+      line-height: 1.4;
       font-weight: 300;
-      padding-right: 0;
-    }
-    .reel-wrap:has(.reel-mute-btn) .reel-caption {
-      padding-right: 34px;
-      text-align: left;
     }
     .reel-mute-btn {
       position: absolute;
-      bottom: 8px;
+      top: 8px;
       right: 8px;
-      z-index: 15;
-      pointer-events: auto;
+      z-index: 3;
       width: 28px;
       height: 28px;
       border-radius: 50%;
       border: 1px solid rgba(179,143,77,0.4);
-      background: rgba(11,11,11,0.7);
+      background: rgba(11,11,11,0.65);
+      backdrop-filter: blur(8px);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .reel-grid-phone .reel-wrap { aspect-ratio: 1; border-radius: 0; }
+    .img-error { opacity: 0.35; filter: grayscale(1); }
+
+    /* Event bot — stile Eugenio Ciullo, tema oro */
+    .event-bot-fab {
+      position: fixed;
+      z-index: 9997;
+      left: 24px;
+      bottom: 24px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1px solid rgba(179,143,77,0.45);
+      background: linear-gradient(135deg, #B38F4D, #E6CA93);
+      color: #0B0B0B;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(179,143,77,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .event-bot-fab:hover { transform: scale(1.06); }
+
+    .event-bot-panel {
+      position: fixed;
+      z-index: 9997;
+      left: 24px;
+      bottom: 96px;
+      width: min(360px, calc(100vw - 48px));
+      max-height: min(520px, calc(100dvh - 120px));
+      display: flex;
+      flex-direction: column;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(179,143,77,0.35);
+      background: rgba(14,14,14,0.96);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+      opacity: 0;
+      transform: translateY(16px) scale(0.96);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .event-bot-panel--open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .event-bot-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(179,143,77,0.15);
+    }
+    .event-bot-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #B38F4D, #E6CA93);
+      color: #0B0B0B;
+      font-size: 9px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .event-bot-progress-track {
+      height: 2px;
+      background: rgba(179,143,77,0.15);
+      margin: 0 16px 8px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .event-bot-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #B38F4D, #E6CA93);
+      transition: width 0.35s ease;
+    }
+    .event-bot-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 160px;
+      max-height: 240px;
+    }
+    .event-bot-bubble {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.45;
+      font-weight: 300;
+    }
+    .event-bot-bubble--bot {
+      align-self: flex-start;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.92);
+      border-bottom-left-radius: 4px;
+    }
+    .event-bot-bubble--user {
+      align-self: flex-end;
+      background: rgba(179,143,77,0.22);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .event-bot-options {
+      padding: 8px 16px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .event-bot-option-btn {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(179,143,77,0.25);
+      background: rgba(255,255,255,0.03);
       color: #E6CA93;
       font-size: 11px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .reel-mute-btn:hover {
-      background: rgba(179,143,77,0.2);
+    .event-bot-option-btn:hover {
+      border-color: rgba(230,202,147,0.55);
+      background: rgba(179,143,77,0.12);
+    }
+    .event-bot-option-btn--primary {
+      background: linear-gradient(135deg, #B38F4D, #D4B06A);
+      color: #0B0B0B;
+      border-color: transparent;
+      font-weight: 600;
+    }
+    .event-bot-text-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(179,143,77,0.3);
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .event-bot-text-input:focus {
+      outline: none;
       border-color: #E6CA93;
     }
-    .reel-showcase .reel-wrap {
-      aspect-ratio: 9/16;
-      border-radius: 1rem;
-      overflow: hidden;
-      border: 1px solid rgba(179,143,77,0.2);
+    .event-bot-input-row { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+    .event-bot-wa-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      border-radius: 12px;
+      background: #25D366;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
     }
-    .reel-showcase .reel-caption { font-size: 10px; bottom: 12px; }
-
-    /* Mobile nav */
-    .nav-mobile-panel {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease;
+    .event-bot-secondary-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(179,143,77,0.25);
+      background: transparent;
+      color: #E6CA93;
+      font-size: 11px;
+      text-decoration: none;
+      cursor: pointer;
     }
-    .nav-mobile-panel.open { max-height: 220px; }
-    .img-error-fallback {
-      background: linear-gradient(135deg, #141414, #0B0B0B);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #B38F4D;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    .event-bot-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #A0A0A0;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    #event-bot-input-wrap.hidden { display: none; }
+    @media (max-width: 640px) {
+      .event-bot-fab { left: 16px; bottom: 16px; width: 52px; height: 52px; }
+      .event-bot-panel { left: 16px; bottom: 84px; }
     }
   </style>
 </head>
@@ -528,26 +676,15 @@
 
   <!-- Navigation -->
   <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gold-dark/10">
-    <nav class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <a href="#" class="font-serif text-xl text-white tracking-wide">
-          Club<span class="text-gold-gradient"> Digitale</span>
-        </a>
-        <div class="hidden sm:flex items-center gap-8">
-          <a href="#eventi" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Eventi</a>
-          <a href="#social-preview" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Preview</a>
-          <a href="#contatti" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Accesso Riservato</a>
-        </div>
-        <button type="button" id="nav-toggle" class="sm:hidden text-gold-light p-2 -mr-2" aria-label="Apri menu" aria-expanded="false">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
-      <div id="nav-mobile" class="nav-mobile-panel sm:hidden">
-        <div class="pt-4 pb-2 flex flex-col gap-4 border-t border-gold-dark/10 mt-4">
-          <a href="#eventi" class="nav-link text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light">Eventi</a>
-          <a href="#social-preview" class="nav-link text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light">Preview</a>
-          <a href="#contatti" class="nav-link text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light">Accesso Riservato</a>
-        </div>
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-serif text-xl text-white tracking-wide">
+        Club<span class="text-gold-gradient"> Digitale</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-8">
+        <a href="#eventi" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Eventi</a>
+        <a href="#configura-evento" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Configura</a>
+        <a href="#social-preview" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Preview</a>
+        <a href="#contatti" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Accesso Riservato</a>
       </div>
     </nav>
   </header>
@@ -590,11 +727,13 @@
           <div id="foto-salotto" class="lg:col-span-5 lg:col-start-8">
             <div class="relative hero-accent-wrap rounded-2xl overflow-hidden card-lift ml-auto max-w-md lg:max-w-none">
               <img
-                src="/assets/img/hero-salotto-lounge.png"
+                src="assets/img/hero-salotto-lounge.png"
                 alt="Salotto privato: humidor in cedro, sigari, distillati e candele"
                 class="img-luxury photo-showcase img-hero-accent w-full h-72 sm:h-96 lg:h-[520px] object-cover"
                 loading="eager"
                 onload="this.classList.add('loaded')"
+              onerror="this.classList.add('img-error')"
+                onerror="this.classList.add('img-error')"
               />
               <div class="absolute top-4 left-4 photo-label">Foto 1 · Salotto &amp; Humidor</div>
               <div class="absolute inset-0 bg-gradient-to-t from-void/50 via-transparent to-transparent pointer-events-none"></div>
@@ -655,11 +794,12 @@
           <!-- Box 1 — Foto 2/5: Degustazione -->
           <div class="reveal group bento-photo-card rounded-2xl p-8 sm:p-10 md:col-span-7 card-lift relative accent-line overflow-hidden min-h-[420px]">
             <img
-              src="/assets/img/degustazione-distillati.png"
+              src="assets/img/degustazione-distillati.png"
               alt="Degustazione amari, botaniche e abbinamenti gourmet"
               class="bento-bg-img"
               loading="lazy"
               onload="this.classList.add('loaded')"
+              onerror="this.classList.add('img-error')"
             />
             <div class="absolute inset-0 bento-photo-scrim pointer-events-none"></div>
             <div class="relative z-10 max-w-lg">
@@ -703,7 +843,7 @@
 
           <!-- Box 3 — Foto 3/5: Eventi (UNICA foto tavolo matrimonio) -->
           <div id="eventi" class="reveal md:col-span-12" style="transition-delay: 0.2s">
-            <div class="glass rounded-2xl p-8 sm:p-10 card-lift border border-gold-dark/20 relative">
+            <div class="glass rounded-2xl p-8 sm:p-10 card-lift border border-gold-dark/20">
               <span class="font-serif text-6xl text-gold-dark/20 absolute top-8 right-10 hidden sm:block">III</span>
               <p class="text-xs uppercase tracking-[0.25em] text-gold-dark mb-4">Infrastruttura Eventi</p>
               <h3 class="font-serif text-2xl sm:text-3xl text-white mb-3 font-medium">Matrimoni &amp; Banchi Degustazione</h3>
@@ -714,11 +854,13 @@
               <div class="rounded-2xl overflow-hidden border border-gold-dark/30 relative mb-8">
                 <span class="photo-label">Foto 3 · Tavolo Matrimonio / Evento</span>
                 <img
-                  src="/assets/img/evento-tavolo-matrimonio.png"
+                  src="assets/img/evento-tavolo-matrimonio.png"
                   alt="Tavolo evento: humidor, Macallan, cioccolato fondente, candele e fiammiferi"
                   class="img-luxury photo-showcase w-full h-auto max-h-[560px] object-cover object-center"
                   loading="lazy"
                   onload="this.classList.add('loaded')"
+              onerror="this.classList.add('img-error')"
+                onerror="this.classList.add('img-error')"
                 />
               </div>
 
@@ -742,7 +884,7 @@
                 </div>
               </div>
 
-              <div class="grid grid-cols-3 gap-3">
+              <div class="grid grid-cols-3 gap-3 mb-8">
                 <div class="glass rounded-2xl px-4 py-3 text-center card-lift border-gold-dark/15">
                   <p class="font-serif text-xl text-gold-gradient">LP</p>
                   <p class="text-[9px] uppercase tracking-wider text-silk mt-0.5">Landing Page</p>
@@ -756,6 +898,11 @@
                   <p class="text-[9px] uppercase tracking-wider text-silk mt-0.5">Clienti VIP</p>
                 </div>
               </div>
+
+              <button type="button" data-open-event-bot class="btn-gold w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-void text-sm font-medium uppercase tracking-[0.12em]">
+                Configura il tuo evento con l'assistente
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h8m-4-4v8"/></svg>
+              </button>
             </div>
           </div>
 
@@ -832,12 +979,11 @@
                   <div class="ig-grid-cell bg-void flex items-center justify-center p-2">
                     <span class="font-serif text-[7px] text-gold-gradient italic text-center leading-tight">Rituale</span>
                   </div>
-                  <div class="ig-grid-cell reel-wrap">
-                    <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/hero-salotto-lounge.png" aria-label="Anteprima reel humidor">
-                      <source src="/assets/video/reel-humidor.mp4" type="video/mp4" />
-                    </video>
-                    <div class="reel-ui"></div>
-                    <span class="reel-play-badge">Reel</span>
+                  <div class="ig-grid-cell bg-graphite reel-grid-phone overflow-hidden relative">
+                    <div class="reel-wrap h-full w-full">
+                      <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" aria-label="Anteprima reel salotto"></video>
+                      <div class="reel-overlay"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -857,11 +1003,13 @@
                 <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-1 row-span-2">
                   <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Alta Gamma</span>
                   <img
-                    src="/assets/img/sigari-alta-gamma.png"
+                    src="assets/img/sigari-alta-gamma.png"
                     alt="Sigari di alta gamma — post Instagram"
                     class="img-luxury photo-showcase w-full h-full object-cover object-top"
                     loading="lazy"
                     onload="this.classList.add('loaded')"
+              onerror="this.classList.add('img-error')"
+                onerror="this.classList.add('img-error')"
                   />
                 </div>
 
@@ -869,36 +1017,54 @@
                 <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2">
                   <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Il Rituale</span>
                   <img
-                    src="/assets/img/rituale-serata-quote.png"
+                    src="assets/img/rituale-serata-quote.png"
                     alt="Grafica social — When the end of the evening..."
                     class="img-luxury photo-showcase w-full h-full object-cover"
                     loading="lazy"
                     onload="this.classList.add('loaded')"
+              onerror="this.classList.add('img-error')"
+                onerror="this.classList.add('img-error')"
                   />
                 </div>
 
-                <!-- Reel humidor — autoplay -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 reel-wrap" data-reel>
-                  <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Reel · Humidor</span>
-                  <span class="reel-play-badge">▶ Auto</span>
-                  <video
-                    class="reel-video"
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata"
-                    poster="/assets/img/hero-salotto-lounge.png"
-                    aria-label="Reel educativo sulla conservazione sigari"
-                  >
-                    <source src="/assets/video/reel-humidor.mp4" type="video/mp4" />
-                  </video>
-                  <div class="reel-ui"></div>
-                  <p class="reel-caption">
-                    «...la temperatura ideale deve oscillare tra i <span class="text-gold-light">18°C</span> e i <span class="text-gold-light">21°C</span>...»
-                  </p>
-                  <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
+                <!-- Reel educativo — video autoplay -->
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 border border-gold-dark/15">
+                  <div class="reel-wrap h-full min-h-[180px]">
+                    <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel educativo humidor 18-21 gradi"></video>
+                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel">🔇</button>
+                    <div class="reel-overlay"></div>
+                    <p class="reel-caption">
+                      <span class="text-[9px] uppercase tracking-wider text-gold-dark block mb-1">Reel · Autoplay</span>
+                      «...la temperatura ideale deve oscillare tra i <span class="text-gold-light">18°C</span> e i <span class="text-gold-light">21°C</span>...»
+                    </p>
+                  </div>
                 </div>
 
+              </div>
+
+              <!-- Griglia reel autoplay -->
+              <div class="mt-6">
+                <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3 px-1">Reel in produzione — riproduzione automatica</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div class="reel-wrap border border-gold-dark/20">
+                    <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel salotto e humidor"></video>
+                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel salotto">🔇</button>
+                    <div class="reel-overlay"></div>
+                    <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Salotto</span><br/>Humidor &amp; atmosfera lounge</p>
+                  </div>
+                  <div class="reel-wrap border border-gold-dark/20">
+                    <video class="reel-video" src="assets/video/reel-evento.mp4" muted loop playsinline preload="metadata" poster="assets/img/evento-tavolo-matrimonio.png" aria-label="Reel evento matrimonio"></video>
+                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel evento">🔇</button>
+                    <div class="reel-overlay"></div>
+                    <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Eventi</span><br/>Tavolo matrimonio &amp; Macallan</p>
+                  </div>
+                  <div class="reel-wrap border border-gold-dark/20">
+                    <video class="reel-video" src="assets/video/reel-degustazione.mp4" muted loop playsinline preload="metadata" poster="assets/img/degustazione-distillati.png" aria-label="Reel degustazione distillati"></video>
+                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel degustazione">🔇</button>
+                    <div class="reel-overlay"></div>
+                    <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Degustazione</span><br/>Amari, botaniche &amp; abbinamenti</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -991,37 +1157,6 @@
               </div>
             </div>
 
-            <!-- Anteprima reel — autoplay quando visibili -->
-            <div class="reel-showcase grid grid-cols-3 gap-3 mb-8">
-              <div class="reel-wrap" data-reel>
-                <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Humidor</span>
-                <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/hero-salotto-lounge.png" aria-label="Reel salotto e humidor">
-                  <source src="/assets/video/reel-humidor.mp4" type="video/mp4" />
-                </video>
-                <div class="reel-ui"></div>
-                <p class="reel-caption">Salotto &amp; conservazione</p>
-                <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
-              </div>
-              <div class="reel-wrap" data-reel>
-                <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Degustazione</span>
-                <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/degustazione-distillati.png" aria-label="Reel degustazione distillati">
-                  <source src="/assets/video/reel-degustazione.mp4" type="video/mp4" />
-                </video>
-                <div class="reel-ui"></div>
-                <p class="reel-caption">Note &amp; abbinamenti</p>
-                <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
-              </div>
-              <div class="reel-wrap" data-reel>
-                <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Eventi</span>
-                <video class="reel-video" muted loop playsinline preload="metadata" poster="/assets/img/evento-tavolo-matrimonio.png" aria-label="Reel tavolo evento matrimonio">
-                  <source src="/assets/video/reel-evento.mp4" type="video/mp4" />
-                </video>
-                <div class="reel-ui"></div>
-                <p class="reel-caption">Matrimoni &amp; tavoli</p>
-                <button type="button" class="reel-mute-btn" data-mute aria-label="Attiva audio">🔇</button>
-              </div>
-            </div>
-
             <ul class="space-y-3 mb-10">
               <li class="flex items-start gap-3 text-sm font-light">
                 <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
@@ -1042,6 +1177,43 @@
             </a>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ CONFIGURA EVENTO ═══════════════════ -->
+    <section id="configura-evento" class="relative py-24 sm:py-32 px-6 bg-graphite/30 scroll-mt-24">
+      <div class="max-w-4xl mx-auto">
+        <div class="reveal text-center mb-12">
+          <p class="text-xs uppercase tracking-[0.35em] text-gold-dark mb-4">Assistente Eventi</p>
+          <h2 class="font-serif text-3xl sm:text-4xl text-white font-medium mb-4">
+            Configura il tuo <span class="italic text-gold-gradient">evento su misura</span>
+          </h2>
+          <p class="text-silk font-light text-sm leading-relaxed max-w-2xl mx-auto">
+            Rispondi a poche domande — tipo evento, budget, distillati, sigari, accessori — con l'opzione <strong class="text-white font-normal">Non lo so</strong> su ogni step. Ricevi un riepilogo pronto da inviare su WhatsApp.
+          </p>
+        </div>
+
+        <div class="reveal glass rounded-2xl p-8 sm:p-10 border border-gold-dark/20 text-center" style="transition-delay: 0.1s">
+          <div class="grid sm:grid-cols-3 gap-4 mb-8 text-left">
+            <div class="rounded-xl border border-gold-dark/15 px-4 py-3">
+              <p class="text-[10px] uppercase tracking-wider text-gold-dark mb-1">Step 1–3</p>
+              <p class="text-white text-sm font-light">Evento, ospiti, budget</p>
+            </div>
+            <div class="rounded-xl border border-gold-dark/15 px-4 py-3">
+              <p class="text-[10px] uppercase tracking-wider text-gold-dark mb-1">Step 4–7</p>
+              <p class="text-white text-sm font-light">Sigari, distillati, accessori, extra</p>
+            </div>
+            <div class="rounded-xl border border-gold-dark/15 px-4 py-3">
+              <p class="text-[10px] uppercase tracking-wider text-gold-dark mb-1">Step 8–10</p>
+              <p class="text-white text-sm font-light">Timing, città, contatto</p>
+            </div>
+          </div>
+          <button type="button" data-open-event-bot class="btn-gold inline-flex items-center gap-3 px-10 py-4 rounded-2xl text-void text-sm font-medium uppercase tracking-[0.12em]">
+            Avvia configuratore eventi
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          </button>
+          <p class="text-[10px] text-silk/50 mt-6">Ispirato al flusso conversazionale dei migliori form bot — senza impegno.</p>
         </div>
       </div>
     </section>
@@ -1125,6 +1297,23 @@
     </div>
   </footer>
 
+  <!-- Event bot flottante -->
+  <div id="event-bot-panel" class="event-bot-panel" aria-hidden="true" role="dialog" aria-labelledby="event-bot-title">
+    <div class="event-bot-header">
+      <div class="event-bot-avatar">EVT</div>
+      <div class="text-left min-w-0">
+        <p id="event-bot-title" class="text-sm text-white font-medium leading-tight">Configuratore Eventi</p>
+        <p class="text-[10px] text-gold-dark">Club Digitale · consulenza gratuita</p>
+      </div>
+      <button type="button" id="event-bot-close" class="event-bot-close" aria-label="Chiudi configuratore">×</button>
+    </div>
+    <div class="event-bot-progress-track"><div id="event-bot-progress" class="event-bot-progress-bar"></div></div>
+    <div id="event-bot-messages" class="event-bot-messages" aria-live="polite"></div>
+    <div id="event-bot-input-wrap"></div>
+    <div id="event-bot-options" class="event-bot-options"></div>
+  </div>
+  <button type="button" id="event-bot-fab" class="event-bot-fab" aria-expanded="false" aria-controls="event-bot-panel" title="Configura evento">EVT</button>
+
   <!-- WhatsApp — consulenza gratuita (trascinabile / minimizzabile) -->
   <div id="wa-widget" class="wa-widget" role="complementary" aria-label="WhatsApp consulenza gratuita">
     <div class="wa-widget-panel" id="wa-panel">
@@ -1149,226 +1338,9 @@
     </button>
   </div>
 
-  <!-- Scroll reveal + form handler -->
-  <script>
-    const SITE = {
-      whatsapp: '393483470654',
-      waMessage: 'Ciao, vorrei una consulenza gratuita per Club Digitale.',
-    };
-
-    // Intersection Observer for scroll animations
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => revealObserver.observe(el));
-
-    // Images — load + error fallback
-    function markImageLoaded(img) {
-      img.classList.add('loaded');
-    }
-    function handleImageError(img) {
-      img.classList.add('loaded', 'img-error-fallback');
-      img.removeAttribute('src');
-      img.alt = 'Immagine non disponibile';
-    }
-    document.querySelectorAll('.img-luxury, .bento-bg-img').forEach(img => {
-      img.addEventListener('error', () => handleImageError(img));
-      if (img.complete && img.naturalWidth > 0) markImageLoaded(img);
-      else {
-        img.addEventListener('load', () => markImageLoaded(img));
-      }
-    });
-
-    // Reel autoplay — muted, loop, plays when visible
-    function initReels() {
-      const videos = document.querySelectorAll('.reel-video');
-      if (!videos.length) return;
-
-      const tryPlay = (video) => {
-        video.play().catch(() => { /* autoplay blocked until interaction */ });
-      };
-
-      const reelObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const video = entry.target;
-          if (entry.isIntersecting) tryPlay(video);
-          else video.pause();
-        });
-      }, { threshold: 0.35, rootMargin: '0px 0px -5% 0px' });
-
-      videos.forEach(video => {
-        video.addEventListener('loadeddata', () => video.classList.add('is-ready'));
-        video.addEventListener('error', () => {
-          video.classList.add('is-ready');
-          const wrap = video.closest('.reel-wrap');
-          if (wrap) wrap.classList.add('img-error-fallback');
-        });
-        if (video.readyState >= 2) video.classList.add('is-ready');
-        reelObserver.observe(video);
-      });
-
-      document.querySelectorAll('[data-mute]').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const video = btn.closest('[data-reel], .reel-wrap')?.querySelector('.reel-video')
-            || btn.parentElement?.querySelector('.reel-video');
-          if (!video) return;
-          video.muted = !video.muted;
-          btn.textContent = video.muted ? '🔇' : '🔊';
-          if (!video.muted) tryPlay(video);
-        });
-      });
-
-      // First interaction unlocks autoplay on mobile
-      const unlock = () => {
-        videos.forEach(tryPlay);
-        document.removeEventListener('touchstart', unlock);
-        document.removeEventListener('click', unlock);
-      };
-      document.addEventListener('touchstart', unlock, { once: true, passive: true });
-      document.addEventListener('click', unlock, { once: true });
-    }
-    initReels();
-
-    // Mobile nav
-    const navToggle = document.getElementById('nav-toggle');
-    const navMobile = document.getElementById('nav-mobile');
-    if (navToggle && navMobile) {
-      navToggle.addEventListener('click', () => {
-        const open = navMobile.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-      navMobile.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          navMobile.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
-
-    // Form submit — opens WhatsApp with pre-filled message
-    function handleSubmit(e) {
-      e.preventDefault();
-      const nome = document.getElementById('nome').value.trim();
-      const salotto = document.getElementById('salotto').value.trim();
-      const citta = document.getElementById('citta').value.trim();
-      const whatsapp = document.getElementById('whatsapp').value.trim();
-
-      const msg = encodeURIComponent(
-        `Richiesta Accesso Riservato — Club Digitale\n\n` +
-        `Nome: ${nome}\n` +
-        `Salotto/Club: ${salotto}\n` +
-        `Città: ${citta}\n` +
-        `WhatsApp: ${whatsapp}`
-      );
-
-      window.open(`https://wa.me/${SITE.whatsapp}?text=${msg}`, '_blank', 'noopener,noreferrer');
-    }
-
-    // WhatsApp floating widget — drag + minimize
-    (function () {
-      const widget = document.getElementById('wa-widget');
-      const fab = document.getElementById('wa-fab');
-      const minimizeBtn = document.getElementById('wa-minimize');
-      const dragHandle = document.getElementById('wa-drag-handle');
-      const WA_URL = 'https://wa.me/' + SITE.whatsapp + '?text=' + encodeURIComponent(SITE.waMessage);
-      const POS_KEY = 'clubDigitaleWaPos';
-      const MIN_KEY = 'clubDigitaleWaMin';
-
-      if (localStorage.getItem(MIN_KEY) === '1') {
-        widget.classList.add('wa-widget--minimized');
-      }
-
-      const saved = localStorage.getItem(POS_KEY);
-      if (saved) {
-        try {
-          const { x, y } = JSON.parse(saved);
-          widget.style.left = x + 'px';
-          widget.style.top = y + 'px';
-          widget.style.right = 'auto';
-          widget.style.bottom = 'auto';
-        } catch (_) { /* ignore */ }
-      }
-
-      minimizeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        widget.classList.add('wa-widget--minimized');
-        localStorage.setItem(MIN_KEY, '1');
-      });
-
-      fab.addEventListener('click', (e) => {
-        if (dragMoved) {
-          dragMoved = false;
-          return;
-        }
-        if (widget.classList.contains('wa-widget--minimized')) {
-          e.preventDefault();
-          widget.classList.remove('wa-widget--minimized');
-          localStorage.setItem(MIN_KEY, '0');
-          return;
-        }
-        window.open(WA_URL, '_blank');
-      });
-
-      let dragging = false;
-      let moved = false;
-      let dragMoved = false;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      function onPointerDown(e) {
-        if (e.target.closest('.wa-widget-min') || e.target.closest('.wa-widget-cta')) return;
-        dragging = true;
-        moved = false;
-        dragMoved = false;
-        widget.classList.add('is-dragging');
-        const rect = widget.getBoundingClientRect();
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-        widget.style.left = rect.left + 'px';
-        widget.style.top = rect.top + 'px';
-        widget.style.right = 'auto';
-        widget.style.bottom = 'auto';
-        if (e.currentTarget.setPointerCapture) {
-          e.currentTarget.setPointerCapture(e.pointerId);
-        }
-      }
-
-      function onPointerMove(e) {
-        if (!dragging) return;
-        moved = true;
-        dragMoved = true;
-        const x = Math.min(Math.max(8, e.clientX - offsetX), window.innerWidth - widget.offsetWidth - 8);
-        const y = Math.min(Math.max(8, e.clientY - offsetY), window.innerHeight - widget.offsetHeight - 8);
-        widget.style.left = x + 'px';
-        widget.style.top = y + 'px';
-      }
-
-      function onPointerUp(e) {
-        if (!dragging) return;
-        dragging = false;
-        widget.classList.remove('is-dragging');
-        if (moved) {
-          localStorage.setItem(POS_KEY, JSON.stringify({
-            x: parseInt(widget.style.left, 10),
-            y: parseInt(widget.style.top, 10),
-          }));
-        }
-      }
-
-      [fab, dragHandle].forEach((el) => {
-        el.addEventListener('pointerdown', onPointerDown);
-      });
-      window.addEventListener('pointermove', onPointerMove);
-      window.addEventListener('pointerup', onPointerUp);
-    })();
-  </script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/reels.js" defer></script>
+  <script src="assets/js/event-bot.js" defer></script>
 
 </body>
 </html>
