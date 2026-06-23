@@ -2,7 +2,9 @@
 <html lang="it" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0B0B0B" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="description" content="Eleviamo l'immagine digitale dei più prestigiosi Salotti e Club d'Italia. Gestione social d'élite a distanza." />
   <title>Club Digitale — La Tradizione dei Grandi Club. Digitalizzata.</title>
 
@@ -63,11 +65,24 @@
   </script>
 
   <style>
-    * { -webkit-tap-highlight-color: transparent; }
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+
+    :root {
+      --header-h: 64px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --pad-x: clamp(1rem, 4vw, 1.5rem);
+      --fab-bottom: calc(12px + var(--safe-bottom));
+    }
+
+    html { scroll-padding-top: calc(var(--header-h) + var(--safe-top)); }
 
     body {
       background-color: #0B0B0B;
       overflow-x: hidden;
+      padding-bottom: calc(80px + var(--safe-bottom));
     }
 
     .opacity-0-start { opacity: 0; }
@@ -120,6 +135,7 @@
       box-shadow: 0 1px 0 0 rgba(230, 202, 147, 0.3);
     }
     .input-gold::placeholder { color: rgba(160, 160, 160, 0.5); }
+    .input-gold, .event-bot-text-input { font-size: 16px; }
 
     /* Scroll reveal */
     .reveal {
@@ -460,8 +476,10 @@
       top: 8px;
       right: 8px;
       z-index: 3;
-      width: 28px;
-      height: 28px;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      min-height: 36px;
       border-radius: 50%;
       border: 1px solid rgba(179,143,77,0.4);
       background: rgba(11,11,11,0.65);
@@ -658,9 +676,168 @@
       line-height: 1;
     }
     #event-bot-input-wrap.hidden { display: none; }
+
+    /* Mobile nav */
+    .nav-mobile-panel {
+      position: fixed;
+      inset: calc(var(--header-h) + var(--safe-top)) 0 0 0;
+      z-index: 49;
+      background: rgba(11, 11, 11, 0.97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 1.5rem var(--pad-x) calc(1.5rem + var(--safe-bottom));
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .nav-mobile-panel--open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .nav-mobile-link {
+      display: block;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(179, 143, 77, 0.12);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #E6CA93;
+    }
+    .nav-toggle {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      border: 1px solid rgba(179, 143, 77, 0.2);
+      color: #E6CA93;
+      background: transparent;
+      touch-action: manipulation;
+    }
+
+    /* Reel horizontal scroll on mobile */
+    .reel-scroll-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .reel-scroll-row::-webkit-scrollbar { display: none; }
+    .reel-scroll-row .reel-wrap {
+      flex: 0 0 min(72vw, 280px);
+      scroll-snap-align: center;
+      aspect-ratio: 9 / 14;
+    }
+
+    .section-pad { padding-left: var(--pad-x); padding-right: var(--pad-x); }
+    .touch-target { min-height: 44px; touch-action: manipulation; }
+
+    @media (max-width: 1023px) {
+      .hero-accent-wrap { clip-path: none; border-radius: 1rem; }
+      .hero-glass-panel {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        margin-top: 0.75rem;
+      }
+      .hero-scroll-hint { display: none; }
+    }
+
+    @media (max-width: 767px) {
+      .bento-photo-scrim {
+        background: linear-gradient(
+          to top,
+          rgba(11, 11, 11, 0.96) 0%,
+          rgba(11, 11, 11, 0.75) 45%,
+          rgba(11, 11, 11, 0.25) 100%
+        );
+      }
+      .bento-photo-card {
+        min-height: auto;
+        padding: 1.25rem !important;
+        padding-bottom: 1.5rem !important;
+      }
+      .bento-photo-card .font-serif.text-6xl { font-size: 2.5rem; }
+      .orb { opacity: 0.5; transform: scale(0.7); }
+
+      .feed-grid-mobile {
+        grid-template-columns: 1fr 1fr !important;
+      }
+      .feed-grid-mobile .feed-cell-tall {
+        grid-row: span 1 !important;
+        min-height: 140px;
+      }
+      .feed-grid-mobile .feed-cell-wide {
+        grid-column: span 2 !important;
+      }
+
+      .event-bot-option-btn {
+        width: 100%;
+        text-align: center;
+        padding: 12px 14px;
+        font-size: 12px;
+      }
+      .event-bot-messages { max-height: 38dvh; }
+      .event-bot-options { max-height: 36dvh; }
+
+      .wa-widget {
+        bottom: var(--fab-bottom);
+        right: calc(12px + var(--safe-right));
+      }
+      .wa-widget-fab { width: 52px; height: 52px; }
+
+      .card-lift:hover { transform: none; }
+      .img-luxury:hover { transform: none; }
+    }
+
     @media (max-width: 640px) {
-      .event-bot-fab { left: 16px; bottom: 16px; width: 52px; height: 52px; }
-      .event-bot-panel { left: 16px; bottom: 84px; }
+      .event-bot-fab {
+        left: calc(12px + var(--safe-left));
+        bottom: var(--fab-bottom);
+        width: 50px;
+        height: 50px;
+        font-size: 9px;
+      }
+      .event-bot-panel {
+        left: calc(12px + var(--safe-left));
+        right: calc(12px + var(--safe-right));
+        bottom: calc(72px + var(--safe-bottom));
+        width: auto;
+        max-height: min(70dvh, 520px);
+      }
+      .event-bot-panel--open.event-bot-panel--fullscreen {
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        max-height: 88dvh !important;
+        border-radius: 1.25rem 1.25rem 0 0;
+      }
+    }
+
+    @media (min-width: 640px) {
+      .reel-scroll-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        overflow: visible;
+      }
+      .reel-scroll-row .reel-wrap {
+        flex: none;
+        width: 100%;
+        aspect-ratio: 9 / 16;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .img-luxury, .card-lift, .orb { transition: none !important; animation: none !important; }
+      .reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -675,24 +852,34 @@
   </div>
 
   <!-- Navigation -->
-  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gold-dark/10">
-    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="font-serif text-xl text-white tracking-wide">
-        Club<span class="text-gold-gradient"> Digitale</span>
-      </a>
-      <div class="hidden sm:flex items-center gap-8">
+  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gold-dark/10" style="padding-top: var(--safe-top);">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between min-h-[var(--header-h)]">
+      <a href="#" class="font-serif text-lg sm:text-xl text-white tracking-wide">Club<span class="text-gold-gradient"> Digitale</span></a>
+      <div class="hidden sm:flex items-center gap-6 lg:gap-8">
         <a href="#eventi" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Eventi</a>
         <a href="#configura-evento" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Configura</a>
         <a href="#social-preview" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Preview</a>
         <a href="#contatti" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Accesso Riservato</a>
       </div>
+      <button type="button" id="nav-toggle" class="nav-toggle sm:hidden" aria-expanded="false" aria-controls="nav-mobile" aria-label="Apri menu">
+        <svg id="nav-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="nav-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
     </nav>
+    <div id="nav-mobile" class="nav-mobile-panel sm:hidden" aria-hidden="true">
+      <a href="#eventi" class="nav-mobile-link" data-nav-close>Eventi</a>
+      <a href="#configura-evento" class="nav-mobile-link" data-nav-close>Configura Evento</a>
+      <a href="#social-preview" class="nav-mobile-link" data-nav-close>Preview Social</a>
+      <a href="#pacchetti" class="nav-mobile-link" data-nav-close>Pacchetti</a>
+      <a href="#contatti" class="nav-mobile-link" data-nav-close>Accesso Riservato</a>
+      <button type="button" data-open-event-bot data-nav-close class="btn-gold touch-target w-full mt-6 py-3.5 rounded-xl text-void text-xs font-medium uppercase tracking-[0.12em]">Configura evento</button>
+    </div>
   </header>
 
   <main>
 
     <!-- ═══════════════════ HERO ═══════════════════ -->
-    <section class="relative min-h-screen flex items-center pt-24 pb-16 px-6 overflow-hidden">
+    <section class="relative min-h-[100svh] flex items-center pt-[calc(var(--header-h)+var(--safe-top)+1rem)] pb-12 sm:pb-16 section-pad overflow-hidden">
       <!-- Hero: solo gradiente — la foto salotto appare UNA volta nell'accent -->
       <div class="absolute inset-0 z-0 bg-gradient-to-br from-void via-graphite/80 to-void" aria-hidden="true"></div>
 
@@ -705,10 +892,10 @@
               Salotto Culturale &middot; Tabaccheria di Prestigio &middot; Club Esclusivi
             </p>
 
-            <h1 class="opacity-0-start animate-fade-in-up-delay-1 font-serif text-white leading-[1.05] mb-8">
-              <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium">La Tradizione</span>
-              <span class="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light italic text-gold-gradient mt-2 ml-0 sm:ml-8 md:ml-16">dei Grandi Club.</span>
-              <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold mt-4">Digitalizzata.</span>
+            <h1 class="opacity-0-start animate-fade-in-up-delay-1 font-serif text-white leading-[1.08] mb-6 sm:mb-8">
+              <span class="block text-[2.35rem] leading-none sm:text-6xl md:text-7xl lg:text-8xl font-medium">La Tradizione</span>
+              <span class="block text-[1.85rem] sm:text-5xl md:text-6xl lg:text-7xl font-light italic text-gold-gradient mt-2 sm:ml-8 md:ml-16">dei Grandi Club.</span>
+              <span class="block text-[2.35rem] leading-none sm:text-6xl md:text-7xl lg:text-8xl font-semibold mt-3 sm:mt-4">Digitalizzata.</span>
             </h1>
 
             <p class="opacity-0-start animate-fade-in-up-delay-2 max-w-xl text-base sm:text-lg font-light leading-relaxed text-silk ml-0 sm:ml-4 md:ml-8">
@@ -716,7 +903,7 @@
             </p>
 
             <div class="opacity-0-start animate-fade-in-up-delay-3 mt-12 ml-0 sm:ml-4 md:ml-8">
-              <a href="#contatti" class="btn-gold inline-flex items-center gap-3 px-10 py-4 rounded-2xl text-void font-sans text-sm font-medium uppercase tracking-[0.15em] relative overflow-hidden">
+              <a href="#contatti" class="btn-gold touch-target inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 sm:px-10 py-4 rounded-2xl text-void font-sans text-xs sm:text-sm font-medium uppercase tracking-[0.12em] relative overflow-hidden">
                 Richiedi l'Accesso Riservato
                 <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
               </a>
@@ -732,14 +919,13 @@
                 class="img-luxury photo-showcase img-hero-accent w-full h-72 sm:h-96 lg:h-[520px] object-cover"
                 loading="eager"
                 onload="this.classList.add('loaded')"
-              onerror="this.classList.add('img-error')"
                 onerror="this.classList.add('img-error')"
               />
               <div class="absolute top-4 left-4 photo-label">Foto 1 · Salotto &amp; Humidor</div>
               <div class="absolute inset-0 bg-gradient-to-t from-void/50 via-transparent to-transparent pointer-events-none"></div>
               <div class="absolute inset-0 border border-gold-dark/25 rounded-2xl pointer-events-none"></div>
               <!-- Floating glass panel -->
-              <div class="absolute bottom-6 left-6 right-6 glass rounded-2xl p-6 backdrop-blur-xl">
+              <div class="absolute bottom-4 sm:bottom-6 left-4 right-4 sm:left-6 sm:right-6 glass hero-glass-panel rounded-2xl p-4 sm:p-6 backdrop-blur-xl">
                 <div class="space-y-4">
                   <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full border border-gold-dark/30 flex items-center justify-center shrink-0">
@@ -770,14 +956,14 @@
       </div>
 
       <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+      <div class="hero-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
         <span class="text-[10px] uppercase tracking-[0.3em]">Scorri</span>
         <div class="w-px h-8 bg-gradient-to-b from-gold-light to-transparent"></div>
       </div>
     </section>
 
     <!-- ═══════════════════ IL METODO ═══════════════════ -->
-    <section id="metodo" class="relative py-24 sm:py-32 px-6">
+    <section id="metodo" class="relative py-16 sm:py-24 md:py-32 section-pad scroll-mt-24">
       <div class="max-w-7xl mx-auto">
 
         <div class="reveal mb-16 sm:mb-20 max-w-2xl">
@@ -859,7 +1045,6 @@
                   class="img-luxury photo-showcase w-full h-auto max-h-[560px] object-cover object-center"
                   loading="lazy"
                   onload="this.classList.add('loaded')"
-              onerror="this.classList.add('img-error')"
                 onerror="this.classList.add('img-error')"
                 />
               </div>
@@ -911,7 +1096,7 @@
     </section>
 
     <!-- ═══════════════════ SOCIAL PREVIEW ═══════════════════ -->
-    <section id="social-preview" class="relative py-24 sm:py-32 px-6 overflow-hidden">
+    <section id="social-preview" class="relative py-16 sm:py-24 md:py-32 section-pad overflow-hidden scroll-mt-24">
       <div class="max-w-7xl mx-auto">
 
         <div class="reveal mb-16 sm:mb-20 grid lg:grid-cols-2 gap-10 items-end">
@@ -997,10 +1182,10 @@
                 <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark">Feed Preview</p>
                 <p class="text-[10px] text-silk/50">Post &amp; Reel</p>
               </div>
-              <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2 feed-grid-mobile">
 
                 <!-- Foto 4/5: Alta Gamma -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-1 row-span-2">
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-1 sm:row-span-2 feed-cell-tall min-h-[140px] sm:min-h-0">
                   <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Alta Gamma</span>
                   <img
                     src="assets/img/sigari-alta-gamma.png"
@@ -1008,13 +1193,12 @@
                     class="img-luxury photo-showcase w-full h-full object-cover object-top"
                     loading="lazy"
                     onload="this.classList.add('loaded')"
-              onerror="this.classList.add('img-error')"
-                onerror="this.classList.add('img-error')"
+                    onerror="this.classList.add('img-error')"
                   />
                 </div>
 
                 <!-- Foto 5/5: Rituale quote -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2">
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 sm:col-span-2 feed-cell-wide min-h-[100px]">
                   <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Il Rituale</span>
                   <img
                     src="assets/img/rituale-serata-quote.png"
@@ -1022,14 +1206,13 @@
                     class="img-luxury photo-showcase w-full h-full object-cover"
                     loading="lazy"
                     onload="this.classList.add('loaded')"
-              onerror="this.classList.add('img-error')"
-                onerror="this.classList.add('img-error')"
+                    onerror="this.classList.add('img-error')"
                   />
                 </div>
 
                 <!-- Reel educativo — video autoplay -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 border border-gold-dark/15">
-                  <div class="reel-wrap h-full min-h-[180px]">
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 feed-cell-wide border border-gold-dark/15">
+                  <div class="reel-wrap h-full min-h-[160px] sm:min-h-[180px]">
                     <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel educativo humidor 18-21 gradi"></video>
                     <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel">🔇</button>
                     <div class="reel-overlay"></div>
@@ -1045,7 +1228,7 @@
               <!-- Griglia reel autoplay -->
               <div class="mt-6">
                 <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3 px-1">Reel in produzione — riproduzione automatica</p>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div class="reel-scroll-row">
                   <div class="reel-wrap border border-gold-dark/20">
                     <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel salotto e humidor"></video>
                     <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel salotto">🔇</button>
@@ -1074,7 +1257,7 @@
     </section>
 
     <!-- ═══════════════════ PACCHETTI ═══════════════════ -->
-    <section id="pacchetti" class="relative py-24 sm:py-32 px-6 bg-graphite/50">
+    <section id="pacchetti" class="relative py-16 sm:py-24 md:py-32 section-pad bg-graphite/50 scroll-mt-24">
       <div class="max-w-7xl mx-auto">
 
         <div class="reveal mb-16 sm:mb-20 text-center">
@@ -1182,7 +1365,7 @@
     </section>
 
     <!-- ═══════════════════ CONFIGURA EVENTO ═══════════════════ -->
-    <section id="configura-evento" class="relative py-24 sm:py-32 px-6 bg-graphite/30 scroll-mt-24">
+    <section id="configura-evento" class="relative py-16 sm:py-24 md:py-32 section-pad bg-graphite/30 scroll-mt-24">
       <div class="max-w-4xl mx-auto">
         <div class="reveal text-center mb-12">
           <p class="text-xs uppercase tracking-[0.35em] text-gold-dark mb-4">Assistente Eventi</p>
@@ -1219,7 +1402,7 @@
     </section>
 
     <!-- ═══════════════════ CONTATTI ═══════════════════ -->
-    <section id="contatti" class="relative py-24 sm:py-32 px-6">
+    <section id="contatti" class="relative py-16 sm:py-24 md:py-32 section-pad scroll-mt-24">
       <div class="max-w-3xl mx-auto">
 
         <div class="reveal text-center mb-14">

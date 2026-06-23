@@ -313,10 +313,19 @@
   function setOpen(value) {
     open = value;
     panel.classList.toggle('event-bot-panel--open', open);
+    if (window.innerWidth <= 640) {
+      panel.classList.toggle('event-bot-panel--fullscreen', open);
+    }
     panel.setAttribute('aria-hidden', open ? 'false' : 'true');
     fab.setAttribute('aria-expanded', open ? 'true' : 'false');
     if (open && messagesEl.childElementCount === 0) renderStep();
-    if (open) scrollBottom();
+    if (open) {
+      scrollBottom();
+      document.body.style.overflow = window.innerWidth <= 640 ? 'hidden' : '';
+    } else {
+      document.body.style.overflow = '';
+      panel.classList.remove('event-bot-panel--fullscreen');
+    }
   }
 
   fab.addEventListener('click', function () { setOpen(!open); });
