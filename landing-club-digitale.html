@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Eleviamo l'immagine digitale dei più prestigiosi Salotti e Club d'Italia. Gestione social d'élite a distanza." />
+  <title>Club Digitale — La Tradizione dei Grandi Club. Digitalizzata.</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            void: '#0B0B0B',
+            graphite: '#141414',
+            silk: '#A0A0A0',
+            gold: {
+              dark: '#B38F4D',
+              light: '#E6CA93',
+            },
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          backgroundImage: {
+            'gold-liquid': 'linear-gradient(135deg, #B38F4D 0%, #D4B06A 40%, #E6CA93 70%, #C9A55C 100%)',
+            'gold-shimmer': 'linear-gradient(90deg, transparent, rgba(230,202,147,0.15), transparent)',
+            'radial-glow': 'radial-gradient(ellipse at 30% 20%, rgba(179,143,77,0.12) 0%, transparent 60%)',
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 1s ease-out forwards',
+            'fade-in-up-delay-1': 'fadeInUp 1s ease-out 0.15s forwards',
+            'fade-in-up-delay-2': 'fadeInUp 1s ease-out 0.3s forwards',
+            'fade-in-up-delay-3': 'fadeInUp 1s ease-out 0.45s forwards',
+            'shimmer': 'shimmer 3s ease-in-out infinite',
+            'float': 'float 8s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(28px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            shimmer: {
+              '0%, 100%': { backgroundPosition: '-200% center' },
+              '50%': { backgroundPosition: '200% center' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    * { -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background-color: #0B0B0B;
+      overflow-x: hidden;
+    }
+
+    .opacity-0-start { opacity: 0; }
+
+    /* Gold liquid button */
+    .btn-gold {
+      position: relative;
+      background: linear-gradient(135deg, #B38F4D 0%, #D4B06A 35%, #E6CA93 65%, #C9A55C 100%);
+      background-size: 200% 200%;
+      transition: background-position 0.6s ease, box-shadow 0.4s ease, transform 0.3s ease;
+    }
+    .btn-gold:hover {
+      background-position: 100% 100%;
+      box-shadow: 0 0 40px rgba(230, 202, 147, 0.35), 0 0 80px rgba(179, 143, 77, 0.15);
+      transform: translateY(-2px);
+    }
+    .btn-gold::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Glass panels */
+    .glass {
+      background: rgba(20, 20, 20, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(179, 143, 77, 0.18);
+    }
+    .glass:hover {
+      border-color: rgba(230, 202, 147, 0.35);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(230, 202, 147, 0.08);
+    }
+
+    /* Gold line input */
+    .input-gold {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(179, 143, 77, 0.4);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .input-gold:focus {
+      outline: none;
+      border-bottom-color: #E6CA93;
+      box-shadow: 0 1px 0 0 rgba(230, 202, 147, 0.3);
+    }
+    .input-gold::placeholder { color: rgba(160, 160, 160, 0.5); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Ambient orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    /* Gold text gradient */
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #B38F4D, #E6CA93, #D4B06A);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Card hover lift */
+    .card-lift {
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+    }
+    .card-lift:hover {
+      transform: translateY(-6px);
+    }
+
+    /* Bento grid accent line */
+    .accent-line::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, #B38F4D, #E6CA93);
+    }
+
+    /* Noise texture overlay */
+    .noise::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      z-index: 9999;
+    }
+
+    /* Luxury image loading */
+    .img-luxury {
+      object-fit: cover;
+      transition: opacity 1.2s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+      opacity: 0;
+    }
+    .img-luxury.loaded { opacity: 1; }
+    .img-luxury:hover { transform: scale(1.03); }
+
+    .bento-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.4s ease, transform 8s ease;
+      filter: brightness(0.92) saturate(1.08);
+    }
+    .bento-bg-img.loaded { opacity: 1; }
+    .group:hover .bento-bg-img.loaded {
+      transform: scale(1.04);
+    }
+
+    /* Hero accent image */
+    .hero-accent-wrap {
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 92%);
+    }
+
+    /* Instagram mockup */
+    .phone-frame {
+      background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
+      box-shadow: 0 25px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(230,202,147,0.1);
+    }
+    .ig-grid-cell {
+      aspect-ratio: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    .ig-grid-cell img { transition: transform 0.7s ease, opacity 1s ease; }
+    .ig-grid-cell:hover img { transform: scale(1.06); }
+
+    /* Social slider */
+    .social-slider { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .social-slider::-webkit-scrollbar { display: none; }
+    .social-slide { scroll-snap-align: center; flex: 0 0 85%; max-width: 320px; }
+    .img-tabac { object-position: center 45%; }
+    .img-cigar-premium { object-position: 65% center; }
+    .img-hero-accent { object-position: center 35%; }
+
+    /* Event mosaic & photo labels */
+    .event-mosaic img { transition: opacity 1.2s ease, transform 0.7s ease; }
+    .event-mosaic .mosaic-cell:hover img { transform: scale(1.05); }
+
+    /* Foto in evidenza — piena luminosità */
+    .photo-showcase {
+      filter: brightness(1) contrast(1.03) saturate(1.05);
+    }
+    .photo-showcase:hover { transform: scale(1.01); }
+
+    /* Bento con foto: scrim solo dove serve il testo */
+    .bento-photo-card {
+      background: transparent;
+      border: 1px solid rgba(179, 143, 77, 0.22);
+    }
+    .bento-photo-scrim {
+      background: linear-gradient(
+        105deg,
+        rgba(11, 11, 11, 0.88) 0%,
+        rgba(11, 11, 11, 0.55) 38%,
+        rgba(11, 11, 11, 0.12) 68%,
+        transparent 100%
+      );
+    }
+    .bento-photo-card .relative.z-10 {
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.65);
+    }
+
+    .photo-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 20;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      background: rgba(11, 11, 11, 0.72);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(179, 143, 77, 0.45);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #E6CA93;
+      font-weight: 500;
+    }
+    .photo-sublabel {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+      z-index: 20;
+      font-size: 11px;
+      color: rgba(255,255,255,0.92);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+    }
+    .gallery-card .mosaic-overlay {
+      background: linear-gradient(to top, rgba(11,11,11,0.75) 0%, rgba(11,11,11,0.15) 45%, transparent 100%);
+    }
+
+    /* WhatsApp floating widget */
+    .wa-widget {
+      position: fixed;
+      z-index: 9998;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      touch-action: none;
+      user-select: none;
+    }
+    .wa-widget.is-dragging { cursor: grabbing; }
+    .wa-widget.is-dragging * { cursor: grabbing; pointer-events: none; }
+    .wa-widget-panel {
+      background: rgba(20, 20, 20, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(179, 143, 77, 0.35);
+      border-radius: 16px;
+      padding: 14px 16px;
+      max-width: 220px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      transition: opacity 0.25s ease, transform 0.25s ease, max-height 0.25s ease;
+      transform-origin: bottom right;
+    }
+    .wa-widget--minimized .wa-widget-panel {
+      opacity: 0;
+      transform: scale(0.85) translateY(8px);
+      pointer-events: none;
+      max-height: 0;
+      padding: 0;
+      border-width: 0;
+      overflow: hidden;
+    }
+    .wa-widget-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+      cursor: grab;
+    }
+    .wa-widget-header:active { cursor: grabbing; }
+    .wa-widget-title {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #E6CA93;
+      font-weight: 500;
+    }
+    .wa-widget-min {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 1px solid rgba(179, 143, 77, 0.3);
+      background: transparent;
+      color: #A0A0A0;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .wa-widget-min:hover {
+      color: #E6CA93;
+      border-color: rgba(230, 202, 147, 0.5);
+    }
+    .wa-widget-text {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 300;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+    .wa-widget-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #25D366;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+    }
+    .wa-widget-cta:hover {
+      background: #20bd5a;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    }
+    .wa-widget-fab {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: none;
+      background: #25D366;
+      color: #fff;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45), 0 0 0 1px rgba(255,255,255,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wa-widget-fab:hover {
+      transform: scale(1.06);
+      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
+    }
+    .wa-widget-fab:active { cursor: grabbing; }
+    .wa-widget-fab svg { width: 30px; height: 30px; }
+  </style>
+</head>
+
+<body class="font-sans text-silk antialiased noise">
+
+  <!-- Ambient background -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="orb w-[500px] h-[500px] bg-gold-dark/10 -top-32 -right-32 animate-float"></div>
+    <div class="orb w-[400px] h-[400px] bg-gold-light/5 bottom-0 -left-48" style="animation: float 10s ease-in-out infinite reverse;"></div>
+    <div class="absolute inset-0 bg-radial-glow"></div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-gold-dark/10">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="font-serif text-xl text-white tracking-wide">
+        Club<span class="text-gold-gradient"> Digitale</span>
+      </a>
+      <div class="hidden sm:flex items-center gap-8">
+        <a href="#eventi" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Eventi</a>
+        <a href="#social-preview" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Preview</a>
+        <a href="#contatti" class="text-xs uppercase tracking-[0.2em] text-silk hover:text-gold-light transition-colors duration-300">Accesso Riservato</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-16 px-6 overflow-hidden">
+      <!-- Hero: solo gradiente — la foto salotto appare UNA volta nell'accent -->
+      <div class="absolute inset-0 z-0 bg-gradient-to-br from-void via-graphite/80 to-void" aria-hidden="true"></div>
+
+      <div class="max-w-7xl mx-auto w-full relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+          <!-- Asymmetric title block -->
+          <div class="lg:col-span-7 lg:col-start-1">
+            <p class="opacity-0-start animate-fade-in-up text-xs uppercase tracking-[0.35em] text-gold-dark mb-8 font-sans font-light">
+              Salotto Culturale &middot; Tabaccheria di Prestigio &middot; Club Esclusivi
+            </p>
+
+            <h1 class="opacity-0-start animate-fade-in-up-delay-1 font-serif text-white leading-[1.05] mb-8">
+              <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium">La Tradizione</span>
+              <span class="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light italic text-gold-gradient mt-2 ml-0 sm:ml-8 md:ml-16">dei Grandi Club.</span>
+              <span class="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold mt-4">Digitalizzata.</span>
+            </h1>
+
+            <p class="opacity-0-start animate-fade-in-up-delay-2 max-w-xl text-base sm:text-lg font-light leading-relaxed text-silk ml-0 sm:ml-4 md:ml-8">
+              Eleviamo l'immagine digitale e la presenza social dei più prestigiosi Salotti e Punti Vendita d'Italia. Gestione d'élite a distanza, zero sforzo per il titolare.
+            </p>
+
+            <div class="opacity-0-start animate-fade-in-up-delay-3 mt-12 ml-0 sm:ml-4 md:ml-8">
+              <a href="#contatti" class="btn-gold inline-flex items-center gap-3 px-10 py-4 rounded-2xl text-void font-sans text-sm font-medium uppercase tracking-[0.15em] relative overflow-hidden">
+                Richiedi l'Accesso Riservato
+                <svg class="w-4 h-4 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Foto 1/5 — Salotto & humidor (unica occorrenza) -->
+          <div id="foto-salotto" class="lg:col-span-5 lg:col-start-8">
+            <div class="relative hero-accent-wrap rounded-2xl overflow-hidden card-lift ml-auto max-w-md lg:max-w-none">
+              <img
+                src="assets/img/hero-salotto-lounge.png"
+                alt="Salotto privato: humidor in cedro, sigari, distillati e candele"
+                class="img-luxury photo-showcase img-hero-accent w-full h-72 sm:h-96 lg:h-[520px] object-cover"
+                loading="eager"
+                onload="this.classList.add('loaded')"
+              />
+              <div class="absolute top-4 left-4 photo-label">Foto 1 · Salotto &amp; Humidor</div>
+              <div class="absolute inset-0 bg-gradient-to-t from-void/50 via-transparent to-transparent pointer-events-none"></div>
+              <div class="absolute inset-0 border border-gold-dark/25 rounded-2xl pointer-events-none"></div>
+              <!-- Floating glass panel -->
+              <div class="absolute bottom-6 left-6 right-6 glass rounded-2xl p-6 backdrop-blur-xl">
+                <div class="space-y-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full border border-gold-dark/30 flex items-center justify-center shrink-0">
+                      <span class="text-gold-light text-[10px] font-serif">01</span>
+                    </div>
+                    <p class="text-white text-xs font-light">Narrazione visiva d'autore</p>
+                  </div>
+                  <div class="w-full h-px bg-gradient-to-r from-gold-dark/30 to-transparent"></div>
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full border border-gold-dark/30 flex items-center justify-center shrink-0">
+                      <span class="text-gold-light text-[10px] font-serif">02</span>
+                    </div>
+                    <p class="text-white text-xs font-light">Gestione remota integrale</p>
+                  </div>
+                  <div class="w-full h-px bg-gradient-to-r from-gold-dark/30 to-transparent"></div>
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full border border-gold-dark/30 flex items-center justify-center shrink-0">
+                      <span class="text-gold-light text-[10px] font-serif">03</span>
+                    </div>
+                    <p class="text-white text-xs font-light">Eventi culturali esclusivi</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+        <span class="text-[10px] uppercase tracking-[0.3em]">Scorri</span>
+        <div class="w-px h-8 bg-gradient-to-b from-gold-light to-transparent"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ IL METODO ═══════════════════ -->
+    <section id="metodo" class="relative py-24 sm:py-32 px-6">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="reveal mb-16 sm:mb-20 max-w-2xl">
+          <p class="text-xs uppercase tracking-[0.35em] text-gold-dark mb-4">Il Metodo a Distanza</p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-white font-medium leading-tight">
+            Prestigio fisico,<br />
+            <span class="italic text-gold-gradient">presenza digitale.</span>
+          </h2>
+        </div>
+
+        <!-- Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-5">
+
+          <!-- Box 1 — Foto 2/5: Degustazione -->
+          <div class="reveal group bento-photo-card rounded-2xl p-8 sm:p-10 md:col-span-7 card-lift relative accent-line overflow-hidden min-h-[420px]">
+            <img
+              src="assets/img/degustazione-distillati.png"
+              alt="Degustazione amari, botaniche e abbinamenti gourmet"
+              class="bento-bg-img"
+              loading="lazy"
+              onload="this.classList.add('loaded')"
+            />
+            <div class="absolute inset-0 bento-photo-scrim pointer-events-none"></div>
+            <div class="relative z-10 max-w-lg">
+              <span class="photo-label static inline-block mb-6 relative top-0 left-0">Foto 2 · Degustazione</span>
+              <div class="flex items-start justify-between gap-4 mb-4">
+                <span class="font-serif text-6xl text-gold-dark/20">I</span>
+              </div>
+              <p class="text-xs uppercase tracking-[0.25em] text-gold-dark mb-6">Connessione Storica</p>
+              <h3 class="font-serif text-2xl sm:text-3xl text-white mb-4 font-medium">Dal Salotto alla Timeline</h3>
+              <p class="text-silk font-light leading-relaxed max-w-lg">
+                Trasferiamo il prestigio fisico del negozio in una narrazione Instagram magnetica. Ogni post racconta la storia del luogo — la cultura della meditazione, i distillati d'eccezione, il rituale del tempo libero — con un'estetica che parla ai clienti alto-spendenti.
+              </p>
+              <div class="mt-8 flex flex-wrap gap-2">
+                <span class="text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-gold-dark/20 text-silk bg-void/40 backdrop-blur-sm">Storytelling</span>
+                <span class="text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-gold-dark/20 text-silk bg-void/40 backdrop-blur-sm">Brand Identity</span>
+                <span class="text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-full border border-gold-dark/20 text-silk bg-void/40 backdrop-blur-sm">Instagram</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Box 2 — Testo humidor (nessuna foto duplicata) -->
+          <div class="reveal glass rounded-2xl p-8 sm:p-10 md:col-span-5 card-lift relative accent-line border-gold-dark/20" style="transition-delay: 0.1s">
+            <span class="font-serif text-6xl text-gold-dark/20 absolute top-6 right-8">II</span>
+            <p class="text-xs uppercase tracking-[0.25em] text-gold-dark mb-4">Cos'è l'Humidor</p>
+            <h3 class="font-serif text-2xl sm:text-3xl text-white mb-4 font-medium">L'Armadio per i Sigari</h3>
+            <p class="text-silk font-light leading-relaxed text-sm mb-6">
+              L'humidor non è un mobile qualsiasi: è l'armadio o la scatola in <strong class="text-white font-normal">legno di cedro</strong> che mantiene umidità e temperatura costanti (18–21°C) per conservare i sigari. Valorizziamo i tuoi armadi a parete e gli humidor da tavolo — come quello visibile nella <a href="#foto-salotto" class="text-gold-light hover:underline">foto del salotto</a>.
+            </p>
+            <ul class="space-y-3 text-sm text-silk font-light mb-8">
+              <li class="flex gap-2"><span class="text-gold-light">—</span> Armadi monumentali a parete</li>
+              <li class="flex gap-2"><span class="text-gold-light">—</span> Humidor da tavolo in eventi</li>
+              <li class="flex gap-2"><span class="text-gold-light">—</span> Vetrine sigari di alta gamma</li>
+            </ul>
+            <div class="pt-6 border-t border-gold-dark/10">
+              <p class="text-white text-sm font-light flex items-center gap-2">
+                <svg class="w-4 h-4 text-gold-light shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                100% gestione remota
+              </p>
+            </div>
+          </div>
+
+          <!-- Box 3 — Foto 3/5: Eventi (UNICA foto tavolo matrimonio) -->
+          <div id="eventi" class="reveal md:col-span-12" style="transition-delay: 0.2s">
+            <div class="glass rounded-2xl p-8 sm:p-10 card-lift border border-gold-dark/20">
+              <span class="font-serif text-6xl text-gold-dark/20 absolute top-8 right-10 hidden sm:block">III</span>
+              <p class="text-xs uppercase tracking-[0.25em] text-gold-dark mb-4">Infrastruttura Eventi</p>
+              <h3 class="font-serif text-2xl sm:text-3xl text-white mb-3 font-medium">Matrimoni &amp; Banchi Degustazione</h3>
+              <p class="text-silk font-light leading-relaxed max-w-2xl mb-8 text-sm">
+                Una sola foto, tutto il mondo eventi: tavolo da matrimonio con humidor aperti, Macallan, cioccolato fondente, fiammiferi e candele. Niente sposi in posa — solo l'allestimento che vende l'esperienza.
+              </p>
+
+              <div class="rounded-2xl overflow-hidden border border-gold-dark/30 relative mb-8">
+                <span class="photo-label">Foto 3 · Tavolo Matrimonio / Evento</span>
+                <img
+                  src="assets/img/evento-tavolo-matrimonio.png"
+                  alt="Tavolo evento: humidor, Macallan, cioccolato fondente, candele e fiammiferi"
+                  class="img-luxury photo-showcase w-full h-auto max-h-[560px] object-cover object-center"
+                  loading="lazy"
+                  onload="this.classList.add('loaded')"
+                />
+              </div>
+
+              <!-- Legenda contestuale — zero foto duplicate -->
+              <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+                <div class="glass rounded-xl px-4 py-3 border border-gold-dark/15">
+                  <p class="text-[10px] uppercase tracking-wider text-gold-dark mb-1">In questa foto</p>
+                  <p class="text-white text-sm font-light">Humidor da tavolo aperti</p>
+                </div>
+                <div class="glass rounded-xl px-4 py-3 border border-gold-dark/15">
+                  <p class="text-[10px] uppercase tracking-wider text-gold-dark mb-1">In questa foto</p>
+                  <p class="text-white text-sm font-light">Macallan &amp; calici cristallo</p>
+                </div>
+                <div class="glass rounded-xl px-4 py-3 border border-gold-dark/15">
+                  <p class="text-[10px] uppercase tracking-wider text-gold-dark mb-1">In questa foto</p>
+                  <p class="text-white text-sm font-light">Cioccolato fondente in praline</p>
+                </div>
+                <div class="glass rounded-xl px-4 py-3 border border-gold-dark/15">
+                  <p class="text-[10px] uppercase tracking-wider text-gold-dark mb-1">In questa foto</p>
+                  <p class="text-white text-sm font-light">Candele &amp; fiammiferi</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-3">
+                <div class="glass rounded-2xl px-4 py-3 text-center card-lift border-gold-dark/15">
+                  <p class="font-serif text-xl text-gold-gradient">LP</p>
+                  <p class="text-[9px] uppercase tracking-wider text-silk mt-0.5">Landing Page</p>
+                </div>
+                <div class="glass rounded-2xl px-4 py-3 text-center card-lift border-gold-dark/15">
+                  <p class="font-serif text-xl text-gold-gradient">RSVP</p>
+                  <p class="text-[9px] uppercase tracking-wider text-silk mt-0.5">Prenotazioni</p>
+                </div>
+                <div class="glass rounded-2xl px-4 py-3 text-center card-lift border-gold-dark/15">
+                  <p class="font-serif text-xl text-gold-gradient">CRM</p>
+                  <p class="text-[9px] uppercase tracking-wider text-silk mt-0.5">Clienti VIP</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ SOCIAL PREVIEW ═══════════════════ -->
+    <section id="social-preview" class="relative py-24 sm:py-32 px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="reveal mb-16 sm:mb-20 grid lg:grid-cols-2 gap-10 items-end">
+          <div>
+            <p class="text-xs uppercase tracking-[0.35em] text-gold-dark mb-4">Social Preview &amp; Visual Architecture</p>
+            <h2 class="font-serif text-4xl sm:text-5xl text-white font-medium leading-tight">
+              Il tuo profilo,<br />
+              <span class="italic text-gold-gradient">come lo vedranno loro.</span>
+            </h2>
+          </div>
+          <p class="text-silk font-light leading-relaxed lg:text-right max-w-md lg:ml-auto">
+            Anteprima del feed Instagram: post di alta gamma, grafiche copy e reel educativi — contenuti che parlano al cliente giusto.
+          </p>
+        </div>
+
+        <!-- Phone + Feed (solo 2 foto uniche, responsive) -->
+        <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" style="transition-delay: 0.1s">
+
+          <!-- Phone mockup — storie tipografiche, zero foto duplicate -->
+          <div class="lg:col-span-4">
+            <div class="phone-frame rounded-[2.5rem] p-3 border border-gold-dark/20 mx-auto max-w-[300px]">
+              <div class="rounded-[2rem] overflow-hidden bg-void border border-gold-dark/10">
+                <div class="px-5 py-3 flex items-center justify-between border-b border-white/5">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-dark to-gold-light/60"></div>
+                    <div>
+                      <p class="text-white text-[11px] font-medium leading-none">salotto_prestige</p>
+                      <p class="text-silk/50 text-[9px]">Club Esclusivo</p>
+                    </div>
+                  </div>
+                  <svg class="w-4 h-4 text-silk/60" fill="currentColor" viewBox="0 0 20 20"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/></svg>
+                </div>
+                <!-- Stories: solo etichette, niente immagini ripetute -->
+                <div class="px-3 py-3 flex gap-3 overflow-hidden border-b border-white/5">
+                  <div class="shrink-0 text-center">
+                    <div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-gold-dark to-gold-light">
+                      <div class="w-full h-full rounded-full bg-graphite border-2 border-void flex items-center justify-center">
+                        <span class="font-serif text-[9px] text-gold-light italic">AG</span>
+                      </div>
+                    </div>
+                    <p class="text-[8px] text-silk/60 mt-1 truncate w-14">Alta Gamma</p>
+                  </div>
+                  <div class="shrink-0 text-center">
+                    <div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-gold-dark to-gold-light">
+                      <div class="w-full h-full rounded-full bg-void border-2 border-void flex items-center justify-center px-1">
+                        <span class="font-serif text-[7px] text-gold-gradient text-center leading-tight italic">Rituale</span>
+                      </div>
+                    </div>
+                    <p class="text-[8px] text-silk/60 mt-1 truncate w-14">Copy</p>
+                  </div>
+                  <div class="shrink-0 text-center">
+                    <div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-gold-dark to-gold-light">
+                      <div class="w-full h-full rounded-full bg-graphite border-2 border-void flex items-center justify-center">
+                        <span class="font-serif text-[9px] text-gold-light">18°</span>
+                      </div>
+                    </div>
+                    <p class="text-[8px] text-silk/60 mt-1 truncate w-14">Reel</p>
+                  </div>
+                </div>
+                <!-- Mini feed — anteprima coerente col feed grande -->
+                <div class="grid grid-cols-3 gap-[2px]">
+                  <div class="ig-grid-cell bg-graphite flex items-center justify-center p-2">
+                    <span class="font-serif text-[8px] text-gold-light italic">AG</span>
+                  </div>
+                  <div class="ig-grid-cell bg-void flex items-center justify-center p-2">
+                    <span class="font-serif text-[7px] text-gold-gradient italic text-center leading-tight">Rituale</span>
+                  </div>
+                  <div class="ig-grid-cell bg-graphite flex items-center justify-center p-2">
+                    <svg class="w-3 h-3 text-gold-light" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feed Preview — solo contenuti social reali -->
+          <div class="lg:col-span-8">
+            <div class="glass rounded-2xl p-4 sm:p-6 border-gold-dark/20">
+              <div class="flex items-center justify-between mb-5 px-1">
+                <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark">Feed Preview</p>
+                <p class="text-[10px] text-silk/50">Post &amp; Reel</p>
+              </div>
+              <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+
+                <!-- Foto 4/5: Alta Gamma -->
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-1 row-span-2">
+                  <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Alta Gamma</span>
+                  <img
+                    src="assets/img/sigari-alta-gamma.png"
+                    alt="Sigari di alta gamma — post Instagram"
+                    class="img-luxury photo-showcase w-full h-full object-cover object-top"
+                    loading="lazy"
+                    onload="this.classList.add('loaded')"
+                  />
+                </div>
+
+                <!-- Foto 5/5: Rituale quote -->
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2">
+                  <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Il Rituale</span>
+                  <img
+                    src="assets/img/rituale-serata-quote.png"
+                    alt="Grafica social — When the end of the evening..."
+                    class="img-luxury photo-showcase w-full h-full object-cover"
+                    loading="lazy"
+                    onload="this.classList.add('loaded')"
+                  />
+                </div>
+
+                <!-- Reel educativo -->
+                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 bg-void border border-gold-dark/15 flex flex-col items-center justify-center p-4 min-h-[120px]">
+                  <div class="w-10 h-10 rounded-full glass flex items-center justify-center border border-gold-dark/30 mb-3">
+                    <svg class="w-4 h-4 text-gold-light ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+                  </div>
+                  <p class="text-[9px] uppercase tracking-wider text-gold-dark mb-1">Reel</p>
+                  <p class="text-[10px] text-white/80 text-center leading-relaxed font-light">
+                    «...la temperatura ideale deve oscillare tra i <span class="text-gold-light">18°C</span> e i <span class="text-gold-light">21°C</span>...»
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════ PACCHETTI ═══════════════════ -->
+    <section id="pacchetti" class="relative py-24 sm:py-32 px-6 bg-graphite/50">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="reveal mb-16 sm:mb-20 text-center">
+          <p class="text-xs uppercase tracking-[0.35em] text-gold-dark mb-4">Pacchetti Gestione</p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-white font-medium">
+            Due livelli di <span class="italic text-gold-gradient">eccellenza</span>
+          </h2>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+
+          <!-- Card 1 — Visual & Lifestyle -->
+          <div class="reveal lg:col-span-5 glass rounded-2xl p-8 sm:p-10 card-lift relative overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-40 h-40 bg-gold-dark/5 rounded-full blur-3xl"></div>
+            <p class="text-xs uppercase tracking-[0.3em] text-gold-dark mb-2">Piano Base</p>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-medium mb-1">Visual &amp; Lifestyle</h3>
+            <p class="text-sm text-silk/70 mb-8 font-light italic">Senza Video</p>
+
+            <ul class="space-y-4 mb-10">
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong class="text-white font-normal">8 Post</strong> al mese curati</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span><strong class="text-white font-normal">12 Storie</strong> settimanali</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Grafiche premium personalizzate — tonalità cuoio e oro
+              </li>
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Testi in PNL per clienti alto-spendenti
+              </li>
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Infografiche su storie e abbinamenti di lusso — caffè, cioccolato, distillati
+              </li>
+            </ul>
+
+            <a href="#contatti" class="block w-full text-center py-3.5 rounded-2xl border border-gold-dark/30 text-white text-sm uppercase tracking-[0.15em] hover:border-gold-light hover:bg-gold-dark/5 transition-all duration-300">
+              Richiedi Informazioni
+            </a>
+          </div>
+
+          <!-- Card 2 — Digital Reels Expert (larger, offset) -->
+          <div class="reveal lg:col-span-7 glass rounded-2xl p-8 sm:p-10 card-lift relative overflow-hidden border-gold-dark/25" style="transition-delay: 0.15s">
+            <div class="absolute -bottom-16 -left-16 w-56 h-56 bg-gold-light/5 rounded-full blur-3xl"></div>
+
+            <!-- Premium badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-liquid/10 border border-gold-dark/30 mb-6">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold-light animate-pulse"></span>
+              <span class="text-[10px] uppercase tracking-[0.2em] text-gold-light font-medium">Add-on Event Premium Kit incluso</span>
+            </div>
+
+            <p class="text-xs uppercase tracking-[0.3em] text-gold-dark mb-2">Piano Avanzato</p>
+            <h3 class="font-serif text-3xl sm:text-4xl text-white font-medium mb-1">Digital Reels Expert</h3>
+            <p class="text-sm text-silk/70 mb-8 font-light italic">Con Video a Camera Fissa</p>
+
+            <p class="text-silk font-light text-sm mb-6 leading-relaxed">
+              Tutto il piano <strong class="text-white font-normal">Visual &amp; Lifestyle</strong>, più post-produzione professionale di <strong class="text-white font-normal">4 video al mese</strong>.
+            </p>
+
+            <div class="glass rounded-2xl p-6 mb-8 border-gold-dark/15">
+              <p class="text-xs uppercase tracking-[0.2em] text-gold-dark mb-3">Il Processo</p>
+              <div class="grid sm:grid-cols-3 gap-4 text-sm font-light">
+                <div>
+                  <p class="text-white mb-1">01 — Registra</p>
+                  <p class="text-silk text-xs leading-relaxed">40 secondi a camera fissa dietro il bancone, seguendo le nostre linee guida</p>
+                </div>
+                <div>
+                  <p class="text-white mb-1">02 — Noi Tagliamo</p>
+                  <p class="text-silk text-xs leading-relaxed">Eliminiamo i tempi morti, color correction calda, ritmo cinematografico</p>
+                </div>
+                <div>
+                  <p class="text-white mb-1">03 — Pubblichiamo</p>
+                  <p class="text-silk text-xs leading-relaxed">Sottotitoli dinamici d'alta moda e colonne sonore d'atmosfera</p>
+                </div>
+              </div>
+            </div>
+
+            <ul class="space-y-3 mb-10">
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Tutto incluso nel piano Visual &amp; Lifestyle
+              </li>
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                4 Reels professionali al mese con post-produzione cinema
+              </li>
+              <li class="flex items-start gap-3 text-sm font-light">
+                <svg class="w-4 h-4 text-gold-light mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Event Premium Kit: landing page eventi + sistema RSVP
+              </li>
+            </ul>
+
+            <a href="#contatti" class="btn-gold block w-full text-center py-4 rounded-2xl text-void text-sm font-medium uppercase tracking-[0.15em] relative overflow-hidden">
+              Richiedi l'Accesso Riservato
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ CONTATTI ═══════════════════ -->
+    <section id="contatti" class="relative py-24 sm:py-32 px-6">
+      <div class="max-w-3xl mx-auto">
+
+        <div class="reveal text-center mb-14">
+          <p class="text-xs uppercase tracking-[0.35em] text-gold-dark mb-4">Contatti</p>
+          <h2 class="font-serif text-4xl sm:text-5xl text-white font-medium mb-4">
+            Inizia la <span class="italic text-gold-gradient">trasformazione</span>
+          </h2>
+          <p class="text-silk font-light max-w-md mx-auto">
+            Compila il modulo. Ti ricontatteremo entro 24 ore per un colloquio riservato.
+          </p>
+        </div>
+
+        <form class="reveal glass rounded-2xl p-8 sm:p-12 space-y-8" onsubmit="handleSubmit(event)" style="transition-delay: 0.1s">
+          <div>
+            <label for="nome" class="block text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3">Nome</label>
+            <input type="text" id="nome" name="nome" required class="input-gold w-full py-3 text-white font-light text-sm" placeholder="Il tuo nome" />
+          </div>
+          <div>
+            <label for="salotto" class="block text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3">Nome del Salotto / Club</label>
+            <input type="text" id="salotto" name="salotto" required class="input-gold w-full py-3 text-white font-light text-sm" placeholder="Es. Salotto Rossi — Milano" />
+          </div>
+          <div class="grid sm:grid-cols-2 gap-8">
+            <div>
+              <label for="citta" class="block text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3">Città</label>
+              <input type="text" id="citta" name="citta" required class="input-gold w-full py-3 text-white font-light text-sm" placeholder="Milano" />
+            </div>
+            <div>
+              <label for="whatsapp" class="block text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3">WhatsApp</label>
+              <input type="tel" id="whatsapp" name="whatsapp" required class="input-gold w-full py-3 text-white font-light text-sm" placeholder="+39 333 000 0000" />
+            </div>
+          </div>
+          <button type="submit" class="btn-gold w-full py-4 rounded-2xl text-void text-sm font-medium uppercase tracking-[0.15em] relative overflow-hidden mt-4">
+            Invia Richiesta Riservata
+          </button>
+          <p class="text-[10px] text-silk/50 text-center leading-relaxed">
+            I dati forniti saranno trattati esclusivamente per rispondere alla tua richiesta, in conformità al Regolamento UE 2016/679 (GDPR).
+          </p>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="border-t border-gold-dark/10 bg-graphite/80 px-6 py-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid sm:grid-cols-2 gap-8 items-start mb-10">
+        <div>
+          <p class="font-serif text-xl text-white mb-2">Club<span class="text-gold-gradient"> Digitale</span></p>
+          <p class="text-xs text-silk/60 font-light leading-relaxed max-w-xs">
+            Servizi di comunicazione digitale e gestione social per Salotti Culturali, Club Esclusivi e Punti Vendita d'élite.
+          </p>
+        </div>
+        <div class="sm:text-right">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-gold-dark mb-3">Settori</p>
+          <p class="text-xs text-silk/60 font-light leading-relaxed">
+            Lifestyle del Tempo Libero &middot; Cultura della Meditazione &middot; Distillati d'Eccezione &middot; Eventi Culturali Privati
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-gold-dark/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-[10px] text-silk/40">&copy; 2026 Club Digitale. Tutti i diritti riservati.</p>
+        <div class="flex gap-6">
+          <a href="#" class="text-[10px] text-silk/40 hover:text-gold-light transition-colors">Privacy Policy</a>
+          <a href="#" class="text-[10px] text-silk/40 hover:text-gold-light transition-colors">Cookie Policy</a>
+          <a href="#" class="text-[10px] text-silk/40 hover:text-gold-light transition-colors">Termini di Servizio</a>
+        </div>
+      </div>
+
+      <p class="text-[9px] text-silk/30 text-center mt-8 leading-relaxed max-w-2xl mx-auto">
+        Questo sito non promuove né vende prodotti da fumo, tabacco o sostanze regolamentate. I servizi offerti riguardano esclusivamente la comunicazione digitale, la gestione dei social media e l'organizzazione di eventi culturali per club e salotti privati.
+      </p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp — consulenza gratuita (trascinabile / minimizzabile) -->
+  <div id="wa-widget" class="wa-widget" role="complementary" aria-label="WhatsApp consulenza gratuita">
+    <div class="wa-widget-panel" id="wa-panel">
+      <div class="wa-widget-header" id="wa-drag-handle">
+        <span class="wa-widget-title">Consulenza gratuita</span>
+        <button type="button" class="wa-widget-min" id="wa-minimize" aria-label="Minimizza chat WhatsApp" title="Minimizza">−</button>
+      </div>
+      <p class="wa-widget-text">Parla con noi su WhatsApp per una consulenza senza impegno sul tuo salotto digitale.</p>
+      <a
+        id="wa-cta"
+        class="wa-widget-cta"
+        href="https://wa.me/393483470654?text=Ciao%2C%20vorrei%20una%20consulenza%20gratuita%20per%20Club%20Digitale."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.881 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Scrivici ora
+      </a>
+    </div>
+    <button type="button" class="wa-widget-fab" id="wa-fab" aria-label="Apri WhatsApp consulenza gratuita" title="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.881 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </button>
+  </div>
+
+  <!-- Scroll reveal + form handler -->
+  <script>
+    // Intersection Observer for scroll animations
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Global image load handler
+    document.querySelectorAll('.img-luxury, .bento-bg-img').forEach(img => {
+      if (img.complete) img.classList.add('loaded');
+      else img.addEventListener('load', () => img.classList.add('loaded'));
+    });
+
+    // Form submit — opens WhatsApp with pre-filled message
+    function handleSubmit(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const salotto = document.getElementById('salotto').value.trim();
+      const citta = document.getElementById('citta').value.trim();
+      const whatsapp = document.getElementById('whatsapp').value.trim();
+
+      const msg = encodeURIComponent(
+        `Richiesta Accesso Riservato — Club Digitale\n\n` +
+        `Nome: ${nome}\n` +
+        `Salotto/Club: ${salotto}\n` +
+        `Città: ${citta}\n` +
+        `WhatsApp: ${whatsapp}`
+      );
+
+      // Replace with your business WhatsApp number
+      const businessNumber = '393483470654';
+      window.open(`https://wa.me/${businessNumber}?text=${msg}`, '_blank');
+    }
+
+    // WhatsApp floating widget — drag + minimize
+    (function () {
+      const widget = document.getElementById('wa-widget');
+      const fab = document.getElementById('wa-fab');
+      const minimizeBtn = document.getElementById('wa-minimize');
+      const dragHandle = document.getElementById('wa-drag-handle');
+      const WA_URL = 'https://wa.me/393483470654?text=' + encodeURIComponent('Ciao, vorrei una consulenza gratuita per Club Digitale.');
+      const POS_KEY = 'clubDigitaleWaPos';
+      const MIN_KEY = 'clubDigitaleWaMin';
+
+      if (localStorage.getItem(MIN_KEY) === '1') {
+        widget.classList.add('wa-widget--minimized');
+      }
+
+      const saved = localStorage.getItem(POS_KEY);
+      if (saved) {
+        try {
+          const { x, y } = JSON.parse(saved);
+          widget.style.left = x + 'px';
+          widget.style.top = y + 'px';
+          widget.style.right = 'auto';
+          widget.style.bottom = 'auto';
+        } catch (_) { /* ignore */ }
+      }
+
+      minimizeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        widget.classList.add('wa-widget--minimized');
+        localStorage.setItem(MIN_KEY, '1');
+      });
+
+      fab.addEventListener('click', (e) => {
+        if (dragMoved) {
+          dragMoved = false;
+          return;
+        }
+        if (widget.classList.contains('wa-widget--minimized')) {
+          e.preventDefault();
+          widget.classList.remove('wa-widget--minimized');
+          localStorage.setItem(MIN_KEY, '0');
+          return;
+        }
+        window.open(WA_URL, '_blank');
+      });
+
+      let dragging = false;
+      let moved = false;
+      let dragMoved = false;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      function onPointerDown(e) {
+        if (e.target.closest('.wa-widget-min') || e.target.closest('.wa-widget-cta')) return;
+        dragging = true;
+        moved = false;
+        dragMoved = false;
+        widget.classList.add('is-dragging');
+        const rect = widget.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        widget.style.left = rect.left + 'px';
+        widget.style.top = rect.top + 'px';
+        widget.style.right = 'auto';
+        widget.style.bottom = 'auto';
+        if (e.currentTarget.setPointerCapture) {
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }
+      }
+
+      function onPointerMove(e) {
+        if (!dragging) return;
+        moved = true;
+        dragMoved = true;
+        const x = Math.min(Math.max(8, e.clientX - offsetX), window.innerWidth - widget.offsetWidth - 8);
+        const y = Math.min(Math.max(8, e.clientY - offsetY), window.innerHeight - widget.offsetHeight - 8);
+        widget.style.left = x + 'px';
+        widget.style.top = y + 'px';
+      }
+
+      function onPointerUp(e) {
+        if (!dragging) return;
+        dragging = false;
+        widget.classList.remove('is-dragging');
+        if (moved) {
+          localStorage.setItem(POS_KEY, JSON.stringify({
+            x: parseInt(widget.style.left, 10),
+            y: parseInt(widget.style.top, 10),
+          }));
+        }
+      }
+
+      [fab, dragHandle].forEach((el) => {
+        el.addEventListener('pointerdown', onPointerDown);
+      });
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+    })();
+  </script>
+
+</body>
+</html>

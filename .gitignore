@@ -1,0 +1,10 @@
+# Altri progetti nella stessa cartella — non pubblicare
+/media-buying-simulator/
+/progetti-ai/
+/sisimbro-orders/
+
+# Sistema / editor
+.DS_Store
+Thumbs.db
+*.log
+.cursor/
