@@ -223,7 +223,256 @@
       clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 92%);
     }
 
-    /* Instagram mockup */
+    /* Instagram iPhone simulation */
+    .iphone-shell {
+      position: relative;
+      width: min(100%, 320px);
+      margin: 0 auto;
+      padding: 10px;
+      border-radius: 44px;
+      background: linear-gradient(160deg, #2a2a2a 0%, #0a0a0a 55%, #1a1a1a 100%);
+      border: 1px solid rgba(179, 143, 77, 0.28);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .iphone-island {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 88px;
+      height: 22px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 30;
+      pointer-events: none;
+    }
+    .iphone-screen {
+      border-radius: 34px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      flex-direction: column;
+      height: min(640px, 72svh);
+    }
+    .iphone-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px 6px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+    }
+    .ig-profile-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .ig-profile-meta {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .ig-stats {
+      display: flex;
+      gap: 16px;
+      margin: 10px 0;
+      font-size: 11px;
+    }
+    .ig-stats strong { color: #fff; display: block; font-size: 13px; }
+    .ig-highlights {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      scrollbar-width: none;
+    }
+    .ig-highlights::-webkit-scrollbar { display: none; }
+    .ig-hl {
+      flex: 0 0 auto;
+      text-align: center;
+      width: 58px;
+    }
+    .ig-hl-ring {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, #B38F4D, #E6CA93);
+      margin: 0 auto 4px;
+    }
+    .ig-hl-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #141414;
+      border: 2px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      color: #E6CA93;
+      text-align: center;
+      line-height: 1.1;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+    }
+    .ig-hl span { font-size: 8px; color: rgba(255,255,255,0.65); }
+    .ig-feed-scroll {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+    .ig-post {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .ig-post-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+    }
+    .ig-post-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #B38F4D, #E6CA93);
+    }
+    .ig-post-media {
+      width: 100%;
+      aspect-ratio: 1;
+      position: relative;
+      overflow: hidden;
+      background: #0B0B0B;
+    }
+    .ig-post-media img, .ig-post-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .ig-post-media .reel-wrap { aspect-ratio: 1; border-radius: 0; }
+    .ig-post-actions {
+      display: flex;
+      gap: 12px;
+      padding: 10px 12px 4px;
+      color: #fff;
+    }
+    .ig-post-caption {
+      padding: 0 12px 12px;
+      font-size: 11px;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.88);
+    }
+    .ig-post-caption strong { color: #fff; font-weight: 500; }
+    .ig-info-graphic {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(145deg, #121212 0%, #0B0B0B 50%, #1a1510 100%);
+      border-top: 1px solid rgba(179,143,77,0.15);
+      border-bottom: 1px solid rgba(179,143,77,0.15);
+    }
+    .ig-info-tag {
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B38F4D;
+      margin-bottom: 8px;
+    }
+    .ig-info-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      color: #E6CA93;
+      margin-bottom: 14px;
+      line-height: 1.15;
+    }
+    .ig-info-sub {
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 12px;
+    }
+    .cigar-layers {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .cigar-layer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(179,143,77,0.2);
+      background: rgba(255,255,255,0.03);
+    }
+    .cigar-layer-bar {
+      width: 4px;
+      height: 28px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .cigar-layer strong { display: block; font-size: 11px; color: #fff; font-weight: 500; }
+    .cigar-layer small { font-size: 9px; color: rgba(255,255,255,0.55); }
+    .humidor-gauge {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .humidor-gauge div {
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(179,143,77,0.25);
+      background: rgba(179,143,77,0.08);
+    }
+    .humidor-gauge .val {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem;
+      color: #E6CA93;
+      line-height: 1;
+    }
+    .humidor-gauge .lbl { font-size: 8px; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); margin-top: 4px; }
+    .steps-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .step-pill {
+      flex: 1;
+      text-align: center;
+      padding: 10px 4px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(179,143,77,0.15);
+    }
+    .step-pill .num { font-size: 14px; color: #E6CA93; font-family: 'Cormorant Garamond', serif; }
+    .step-pill .txt { font-size: 8px; color: rgba(255,255,255,0.65); margin-top: 2px; line-height: 1.2; }
+    .ig-tabs {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0 10px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      background: #000;
+      flex-shrink: 0;
+    }
+    .ig-tab {
+      font-size: 18px;
+      opacity: 0.45;
+      line-height: 1;
+    }
+    .ig-post-media img.img-luxury { opacity: 1; }
+    .ig-post-media img.img-luxury:not(.loaded) { opacity: 0.3; }
     .phone-frame {
       background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
       box-shadow: 0 25px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(230,202,147,0.1);
@@ -795,6 +1044,10 @@
 
       .card-lift:hover { transform: none; }
       .img-luxury:hover { transform: none; }
+
+      .iphone-screen { height: min(580px, 68svh); }
+      .iphone-shell { width: min(100%, 300px); }
+      .ig-info-title { font-size: 1.15rem; }
     }
 
     @media (max-width: 640px) {
@@ -1108,145 +1361,281 @@
             </h2>
           </div>
           <p class="text-silk font-light leading-relaxed lg:text-right max-w-md lg:ml-auto">
-            Anteprima del feed Instagram: post di alta gamma, grafiche copy e reel educativi — contenuti che parlano al cliente giusto.
+            Simulazione iPhone con profilo Instagram reale: post fotografici, reel e grafiche informative su anatomia del sigaro, humidor, taglio e cultura del salotto.
           </p>
         </div>
 
-        <!-- Phone + Feed (solo 2 foto uniche, responsive) -->
-        <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" style="transition-delay: 0.1s">
+        <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start" style="transition-delay: 0.1s">
 
-          <!-- Phone mockup — storie tipografiche, zero foto duplicate -->
-          <div class="lg:col-span-4">
-            <div class="phone-frame rounded-[2.5rem] p-3 border border-gold-dark/20 mx-auto max-w-[300px]">
-              <div class="rounded-[2rem] overflow-hidden bg-void border border-gold-dark/10">
-                <div class="px-5 py-3 flex items-center justify-between border-b border-white/5">
-                  <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold-dark to-gold-light/60"></div>
-                    <div>
-                      <p class="text-white text-[11px] font-medium leading-none">salotto_prestige</p>
-                      <p class="text-silk/50 text-[9px]">Club Esclusivo</p>
-                    </div>
-                  </div>
-                  <svg class="w-4 h-4 text-silk/60" fill="currentColor" viewBox="0 0 20 20"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          <!-- iPhone — simulazione Instagram completa -->
+          <div class="lg:col-span-5 xl:col-span-4">
+            <div class="iphone-shell">
+              <div class="iphone-island" aria-hidden="true"></div>
+              <div class="iphone-screen">
+
+                <div class="iphone-status">
+                  <span>9:41</span>
+                  <span class="flex gap-1 items-center">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7c0-4.97-4.03-9-9-9z"/></svg>
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M1 9l2 2c2.5-3.5 6.5-5.5 11-5.5s8.5 2 11 5.5l2-2C23.5 5.5 18.2 2 12 2S.5 5.5 1 9zm11 6c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z"/></svg>
+                    <svg class="w-4 h-3" fill="currentColor" viewBox="0 0 24 12"><rect x="1" y="1" width="20" height="10" rx="2" stroke="currentColor" fill="none" stroke-width="1"/><rect x="3" y="3" width="14" height="6" rx="1"/></svg>
+                  </span>
                 </div>
-                <!-- Stories: solo etichette, niente immagini ripetute -->
-                <div class="px-3 py-3 flex gap-3 overflow-hidden border-b border-white/5">
-                  <div class="shrink-0 text-center">
-                    <div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-gold-dark to-gold-light">
-                      <div class="w-full h-full rounded-full bg-graphite border-2 border-void flex items-center justify-center">
-                        <span class="font-serif text-[9px] text-gold-light italic">AG</span>
-                      </div>
-                    </div>
-                    <p class="text-[8px] text-silk/60 mt-1 truncate w-14">Alta Gamma</p>
-                  </div>
-                  <div class="shrink-0 text-center">
-                    <div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-gold-dark to-gold-light">
-                      <div class="w-full h-full rounded-full bg-void border-2 border-void flex items-center justify-center px-1">
-                        <span class="font-serif text-[7px] text-gold-gradient text-center leading-tight italic">Rituale</span>
-                      </div>
-                    </div>
-                    <p class="text-[8px] text-silk/60 mt-1 truncate w-14">Copy</p>
-                  </div>
-                  <div class="shrink-0 text-center">
-                    <div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-gold-dark to-gold-light">
-                      <div class="w-full h-full rounded-full bg-graphite border-2 border-void flex items-center justify-center">
-                        <span class="font-serif text-[9px] text-gold-light">18°</span>
-                      </div>
-                    </div>
-                    <p class="text-[8px] text-silk/60 mt-1 truncate w-14">Reel</p>
+
+                <div class="ig-profile-bar">
+                  <span class="text-white text-sm font-semibold">salotto_prestige</span>
+                  <div class="flex gap-3 text-white/80">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                   </div>
                 </div>
-                <!-- Mini feed — anteprima coerente col feed grande -->
-                <div class="grid grid-cols-3 gap-[2px]">
-                  <div class="ig-grid-cell bg-graphite flex items-center justify-center p-2">
-                    <span class="font-serif text-[8px] text-gold-light italic">AG</span>
-                  </div>
-                  <div class="ig-grid-cell bg-void flex items-center justify-center p-2">
-                    <span class="font-serif text-[7px] text-gold-gradient italic text-center leading-tight">Rituale</span>
-                  </div>
-                  <div class="ig-grid-cell bg-graphite reel-grid-phone overflow-hidden relative">
-                    <div class="reel-wrap h-full w-full">
-                      <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" aria-label="Anteprima reel salotto"></video>
-                      <div class="reel-overlay"></div>
+
+                <div class="ig-profile-meta">
+                  <div class="flex items-center gap-3">
+                    <div class="w-14 h-14 rounded-full p-[2px] bg-gradient-to-tr from-gold-dark to-gold-light shrink-0">
+                      <div class="w-full h-full rounded-full bg-void border-2 border-black flex items-center justify-center font-serif text-gold-light text-xs italic">SP</div>
+                    </div>
+                    <div class="ig-stats">
+                      <div><strong>128</strong> post</div>
+                      <div><strong>4,2k</strong> follower</div>
+                      <div><strong>312</strong> seguiti</div>
                     </div>
                   </div>
+                  <p class="text-[11px] text-white font-medium mt-2">Salotto Prestige · Tabaccheria di cultura</p>
+                  <p class="text-[10px] text-silk/70 mt-1 leading-relaxed">Sigari · Humidor · Distillati · Eventi esclusivi<br/>📍 Italia · Consulenza su appuntamento</p>
+                </div>
+
+                <div class="ig-highlights">
+                  <div class="ig-hl">
+                    <div class="ig-hl-ring"><div class="ig-hl-inner">Anatomia</div></div>
+                    <span>Anatomia</span>
+                  </div>
+                  <div class="ig-hl">
+                    <div class="ig-hl-ring"><div class="ig-hl-inner">Humidor</div></div>
+                    <span>Humidor</span>
+                  </div>
+                  <div class="ig-hl">
+                    <div class="ig-hl-ring"><div class="ig-hl-inner">Taglio</div></div>
+                    <span>Taglio</span>
+                  </div>
+                  <div class="ig-hl">
+                    <div class="ig-hl-ring"><div class="ig-hl-inner">Abbinamenti</div></div>
+                    <span>Pairing</span>
+                  </div>
+                  <div class="ig-hl">
+                    <div class="ig-hl-ring"><div class="ig-hl-inner">Eventi</div></div>
+                    <span>Eventi</span>
+                  </div>
+                </div>
+
+                <!-- Feed scrollabile -->
+                <div class="ig-feed-scroll" id="ig-feed-scroll">
+
+                  <!-- Post 1: Infografica anatomia -->
+                  <article class="ig-post">
+                    <div class="ig-post-head">
+                      <div class="ig-post-avatar"></div>
+                      <div>
+                        <p class="text-[11px] text-white font-medium leading-none">salotto_prestige</p>
+                        <p class="text-[9px] text-silk/50">Carousel · Cultura</p>
+                      </div>
+                    </div>
+                    <div class="ig-post-media">
+                      <div class="ig-info-graphic">
+                        <p class="ig-info-tag">Post educativo · 1/4</p>
+                        <h3 class="ig-info-title">Anatomia del Sigaro</h3>
+                        <p class="ig-info-sub">Tre foglie, una sola esperienza. Ecco come è fatto.</p>
+                        <div class="cigar-layers">
+                          <div class="cigar-layer">
+                            <div class="cigar-layer-bar" style="background:#8B6914"></div>
+                            <div><strong>Capa</strong><small>Foglia esterna — aroma e combustione uniforme</small></div>
+                          </div>
+                          <div class="cigar-layer">
+                            <div class="cigar-layer-bar" style="background:#5C4033"></div>
+                            <div><strong>Capote</strong><small>Legame e struttura — tiene insieme la tripa</small></div>
+                          </div>
+                          <div class="cigar-layer">
+                            <div class="cigar-layer-bar" style="background:#3d2914"></div>
+                            <div><strong>Tripa</strong><small>Miscele di foglie — corpo, forza e persistenza</small></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ig-post-actions">
+                      <span>♡</span><span>💬</span><span>↗</span>
+                    </div>
+                    <p class="ig-post-caption"><strong>salotto_prestige</strong> Sapere cosa fumi è il primo segno di cultura. Slide 1: le tre anime del sigaro. #cultura #sigaro #salotto</p>
+                  </article>
+
+                  <!-- Post 2: Foto alta gamma -->
+                  <article class="ig-post">
+                    <div class="ig-post-head">
+                      <div class="ig-post-avatar"></div>
+                      <p class="text-[11px] text-white font-medium">salotto_prestige</p>
+                    </div>
+                    <div class="ig-post-media">
+                      <img src="assets/img/sigari-alta-gamma.png" alt="Selezione sigari alta gamma in salotto" class="img-luxury photo-showcase" loading="lazy" onload="this.classList.add('loaded')" onerror="this.classList.add('img-error')" />
+                    </div>
+                    <div class="ig-post-actions"><span>♡</span><span>💬</span><span>↗</span></div>
+                    <p class="ig-post-caption"><strong>salotto_prestige</strong> Alta gamma in vetrina. La selezione parla prima di te. #altagamma #club</p>
+                  </article>
+
+                  <!-- Post 3: Infografica humidor -->
+                  <article class="ig-post">
+                    <div class="ig-post-head">
+                      <div class="ig-post-avatar"></div>
+                      <p class="text-[11px] text-white font-medium">salotto_prestige</p>
+                    </div>
+                    <div class="ig-post-media">
+                      <div class="ig-info-graphic">
+                        <p class="ig-info-tag">Post educativo · 2/4</p>
+                        <h3 class="ig-info-title">L'Humidor Perfetto</h3>
+                        <p class="ig-info-sub">Legno di cedro, umidità costante, sigari sempre pronti.</p>
+                        <div class="humidor-gauge">
+                          <div><div class="val">18–21°</div><div class="lbl">Temperatura</div></div>
+                          <div><div class="val">65–72%</div><div class="lbl">Umidità RH</div></div>
+                        </div>
+                        <p class="text-[9px] text-silk/60 mt-3 text-center">Armadio a parete o humidor da tavolo — la cura fa la differenza.</p>
+                      </div>
+                    </div>
+                    <div class="ig-post-actions"><span>♡</span><span>💬</span><span>↗</span></div>
+                    <p class="ig-post-caption"><strong>salotto_prestige</strong> Conservazione = rispetto del tempo investito in ogni sigaro. #humidor #cedro</p>
+                  </article>
+
+                  <!-- Post 4: Reel -->
+                  <article class="ig-post">
+                    <div class="ig-post-head">
+                      <div class="ig-post-avatar"></div>
+                      <p class="text-[11px] text-white font-medium">salotto_prestige</p>
+                    </div>
+                    <div class="ig-post-media">
+                      <div class="reel-wrap h-full w-full">
+                        <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel salotto"></video>
+                        <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel">🔇</button>
+                        <div class="reel-overlay"></div>
+                        <p class="reel-caption text-[9px]">Reel · Atmosfera salotto</p>
+                      </div>
+                    </div>
+                    <div class="ig-post-actions"><span>♡</span><span>💬</span><span>↗</span></div>
+                    <p class="ig-post-caption"><strong>salotto_prestige</strong> Dietro le quinte del salotto. Luce calda, legno, rituali. #reel #lounge</p>
+                  </article>
+
+                  <!-- Post 5: Taglio -->
+                  <article class="ig-post">
+                    <div class="ig-post-head">
+                      <div class="ig-post-avatar"></div>
+                      <p class="text-[11px] text-white font-medium">salotto_prestige</p>
+                    </div>
+                    <div class="ig-post-media">
+                      <div class="ig-info-graphic">
+                        <p class="ig-info-tag">Post educativo · 3/4</p>
+                        <h3 class="ig-info-title">Il Taglio Giusto</h3>
+                        <p class="ig-info-sub">Guillotine, punch o V-cut — ogni scelta cambia il draw.</p>
+                        <div class="steps-row">
+                          <div class="step-pill"><div class="num">01</div><div class="txt">Taglio netto capa</div></div>
+                          <div class="step-pill"><div class="num">02</div><div class="txt">Toasta leggera</div></div>
+                          <div class="step-pill"><div class="num">03</div><div class="txt">Primo tiro lento</div></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ig-post-actions"><span>♡</span><span>💬</span><span>↗</span></div>
+                    <p class="ig-post-caption"><strong>salotto_prestige</strong> Il rituale inizia dal taglio. Mai fretta. #rituale #taglio</p>
+                  </article>
+
+                  <!-- Post 6: Copy grafica -->
+                  <article class="ig-post">
+                    <div class="ig-post-head">
+                      <div class="ig-post-avatar"></div>
+                      <p class="text-[11px] text-white font-medium">salotto_prestige</p>
+                    </div>
+                    <div class="ig-post-media">
+                      <img src="assets/img/rituale-serata-quote.png" alt="Grafica Il Rituale del Tempo" class="img-luxury photo-showcase" loading="lazy" onload="this.classList.add('loaded')" onerror="this.classList.add('img-error')" />
+                    </div>
+                    <div class="ig-post-actions"><span>♡</span><span>💬</span><span>↗</span></div>
+                    <p class="ig-post-caption"><strong>salotto_prestige</strong> Il tempo libero ha la sua grammatica. #rituale #quietluxury</p>
+                  </article>
+
+                  <!-- Post 7: Abbinamenti -->
+                  <article class="ig-post">
+                    <div class="ig-post-head">
+                      <div class="ig-post-avatar"></div>
+                      <p class="text-[11px] text-white font-medium">salotto_prestige</p>
+                    </div>
+                    <div class="ig-post-media">
+                      <div class="ig-info-graphic">
+                        <p class="ig-info-tag">Post educativo · 4/4</p>
+                        <h3 class="ig-info-title">Abbinamenti d'Autore</h3>
+                        <p class="ig-info-sub">Whisky torbato · Rum invecchiato · Cioccolato fondente 70%</p>
+                        <div class="cigar-layers">
+                          <div class="cigar-layer"><div class="cigar-layer-bar" style="background:#B38F4D"></div><div><strong>Whisky / Rum</strong><small>Note dolci amplificano la capa</small></div></div>
+                          <div class="cigar-layer"><div class="cigar-layer-bar" style="background:#4a3728"></div><div><strong>Cioccolato fondente</strong><small>Amaro e cacao bilanciano la tripa</small></div></div>
+                          <div class="cigar-layer"><div class="cigar-layer-bar" style="background:#6b5344"></div><div><strong>Caffè ristretto</strong><small>Finale lungo e speziato</small></div></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ig-post-actions"><span>♡</span><span>💬</span><span>↗</span></div>
+                    <p class="ig-post-caption"><strong>salotto_prestige</strong> L'abbinamento giusto eleva l'esperienza. Chiedi in salotto. #pairing #distillati</p>
+                  </article>
+
+                </div>
+
+                <div class="ig-tabs" aria-hidden="true">
+                  <span class="ig-tab ig-tab--active">⌂</span>
+                  <span class="ig-tab">⌕</span>
+                  <span class="ig-tab">▶</span>
+                  <span class="ig-tab">🛍</span>
+                  <span class="ig-tab">◎</span>
+                </div>
+
+              </div>
+            </div>
+            <p class="text-center text-[10px] text-silk/40 mt-4 uppercase tracking-[0.2em]">Scorri il feed ↑ dentro l'iPhone</p>
+          </div>
+
+          <!-- Colonna informativa + reel extra -->
+          <div class="lg:col-span-7 xl:col-span-8 space-y-6">
+            <div class="glass rounded-2xl p-6 sm:p-8 border-gold-dark/20">
+              <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-4">Contenuti che gestiamo per te</p>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="rounded-xl border border-gold-dark/15 p-4">
+                  <p class="text-gold-light text-xs font-medium mb-1">📊 Carousel educativi</p>
+                  <p class="text-silk text-xs font-light">Anatomia, humidor, taglio, stagionatura — grafiche d'autore in stile salotto.</p>
+                </div>
+                <div class="rounded-xl border border-gold-dark/15 p-4">
+                  <p class="text-gold-light text-xs font-medium mb-1">📸 Post fotografici</p>
+                  <p class="text-silk text-xs font-light">Alta gamma, vetrine, eventi e atmosfera del tuo punto vendita.</p>
+                </div>
+                <div class="rounded-xl border border-gold-dark/15 p-4">
+                  <p class="text-gold-light text-xs font-medium mb-1">🎬 Reel &amp; Stories</p>
+                  <p class="text-silk text-xs font-light">Video brevi con sottotitoli, musica d'atmosfera e copy culturale.</p>
+                </div>
+                <div class="rounded-xl border border-gold-dark/15 p-4">
+                  <p class="text-gold-light text-xs font-medium mb-1">✍️ Copy PNL</p>
+                  <p class="text-silk text-xs font-light">Didascalie che educano e posizionano — mai volgari, sempre premium.</p>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Feed Preview — solo contenuti social reali -->
-          <div class="lg:col-span-8">
-            <div class="glass rounded-2xl p-4 sm:p-6 border-gold-dark/20">
-              <div class="flex items-center justify-between mb-5 px-1">
-                <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark">Feed Preview</p>
-                <p class="text-[10px] text-silk/50">Post &amp; Reel</p>
-              </div>
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2 feed-grid-mobile">
-
-                <!-- Foto 4/5: Alta Gamma -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-1 sm:row-span-2 feed-cell-tall min-h-[140px] sm:min-h-0">
-                  <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Alta Gamma</span>
-                  <img
-                    src="assets/img/sigari-alta-gamma.png"
-                    alt="Sigari di alta gamma — post Instagram"
-                    class="img-luxury photo-showcase w-full h-full object-cover object-top"
-                    loading="lazy"
-                    onload="this.classList.add('loaded')"
-                    onerror="this.classList.add('img-error')"
-                  />
+            <div>
+              <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3">Reel in produzione — autoplay</p>
+              <div class="reel-scroll-row">
+                <div class="reel-wrap border border-gold-dark/20">
+                  <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel salotto"></video>
+                  <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio">🔇</button>
+                  <div class="reel-overlay"></div>
+                  <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Salotto</span><br/>Humidor &amp; lounge</p>
                 </div>
-
-                <!-- Foto 5/5: Rituale quote -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 sm:col-span-2 feed-cell-wide min-h-[100px]">
-                  <span class="photo-label" style="top:6px;left:6px;font-size:7px;padding:4px 8px;">Il Rituale</span>
-                  <img
-                    src="assets/img/rituale-serata-quote.png"
-                    alt="Grafica social — When the end of the evening..."
-                    class="img-luxury photo-showcase w-full h-full object-cover"
-                    loading="lazy"
-                    onload="this.classList.add('loaded')"
-                    onerror="this.classList.add('img-error')"
-                  />
+                <div class="reel-wrap border border-gold-dark/20">
+                  <video class="reel-video" src="assets/video/reel-evento.mp4" muted loop playsinline preload="metadata" poster="assets/img/evento-tavolo-matrimonio.png" aria-label="Reel evento"></video>
+                  <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio">🔇</button>
+                  <div class="reel-overlay"></div>
+                  <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Eventi</span><br/>Tavolo &amp; Macallan</p>
                 </div>
-
-                <!-- Reel educativo — video autoplay -->
-                <div class="ig-grid-cell rounded-xl overflow-hidden relative col-span-2 feed-cell-wide border border-gold-dark/15">
-                  <div class="reel-wrap h-full min-h-[160px] sm:min-h-[180px]">
-                    <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel educativo humidor 18-21 gradi"></video>
-                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel">🔇</button>
-                    <div class="reel-overlay"></div>
-                    <p class="reel-caption">
-                      <span class="text-[9px] uppercase tracking-wider text-gold-dark block mb-1">Reel · Autoplay</span>
-                      «...la temperatura ideale deve oscillare tra i <span class="text-gold-light">18°C</span> e i <span class="text-gold-light">21°C</span>...»
-                    </p>
-                  </div>
-                </div>
-
-              </div>
-
-              <!-- Griglia reel autoplay -->
-              <div class="mt-6">
-                <p class="text-[10px] uppercase tracking-[0.25em] text-gold-dark mb-3 px-1">Reel in produzione — riproduzione automatica</p>
-                <div class="reel-scroll-row">
-                  <div class="reel-wrap border border-gold-dark/20">
-                    <video class="reel-video" src="assets/video/reel-salotto.mp4" muted loop playsinline preload="metadata" poster="assets/img/hero-salotto-lounge.png" aria-label="Reel salotto e humidor"></video>
-                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel salotto">🔇</button>
-                    <div class="reel-overlay"></div>
-                    <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Salotto</span><br/>Humidor &amp; atmosfera lounge</p>
-                  </div>
-                  <div class="reel-wrap border border-gold-dark/20">
-                    <video class="reel-video" src="assets/video/reel-evento.mp4" muted loop playsinline preload="metadata" poster="assets/img/evento-tavolo-matrimonio.png" aria-label="Reel evento matrimonio"></video>
-                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel evento">🔇</button>
-                    <div class="reel-overlay"></div>
-                    <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Eventi</span><br/>Tavolo matrimonio &amp; Macallan</p>
-                  </div>
-                  <div class="reel-wrap border border-gold-dark/20">
-                    <video class="reel-video" src="assets/video/reel-degustazione.mp4" muted loop playsinline preload="metadata" poster="assets/img/degustazione-distillati.png" aria-label="Reel degustazione distillati"></video>
-                    <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio reel degustazione">🔇</button>
-                    <div class="reel-overlay"></div>
-                    <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Degustazione</span><br/>Amari, botaniche &amp; abbinamenti</p>
-                  </div>
+                <div class="reel-wrap border border-gold-dark/20">
+                  <video class="reel-video" src="assets/video/reel-degustazione.mp4" muted loop playsinline preload="metadata" poster="assets/img/degustazione-distillati.png" aria-label="Reel degustazione"></video>
+                  <button type="button" class="reel-mute-btn" aria-pressed="true" aria-label="Audio">🔇</button>
+                  <div class="reel-overlay"></div>
+                  <p class="reel-caption"><span class="text-gold-dark uppercase tracking-wider text-[8px]">Degustazione</span><br/>Amari &amp; botaniche</p>
                 </div>
               </div>
             </div>
